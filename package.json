@@ -114,7 +114,7 @@
 		"react": "^19.2.3",
 		"react-dom": "^19.2.3",
 		"sass": "^1.96.0",
-		"storybook": "^10.1.10",
+		"storybook": "^10.2.10",
 		"stylelint": "^16.26.1",
 		"stylelint-config-standard-scss": "^16.0.0",
 		"stylelint-scss": "^6.13.0",
