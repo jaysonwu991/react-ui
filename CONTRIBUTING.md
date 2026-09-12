@@ -108,7 +108,6 @@ src/
 ├── styles/_utilities.scss      # Shared variables, breakpoints, mixins
 ├── assets/icons/               # Icon fonts, SVG symbols, loader
 └── index.ts                    # Library entry point
-docs/                           # Long-form documentation
 ```
 
 Every component follows the same five-file layout.
@@ -122,7 +121,7 @@ All pull requests must:
 - Pass `pnpm lint` and `pnpm lint:sass`.
 - Be formatted with `pnpm format`.
 
-There is no CI pipeline; run these locally before pushing.
+CI runs these checks on every push and pull request to `main`; keep them green locally before pushing.
 
 ## Documentation
 

@@ -13,6 +13,10 @@ dist/
 build/
 *.tgz
 
+# Generated icon assets
+src/assets/icons/demo.css
+src/assets/icons/demo_index.html
+
 # Testing
 coverage/
 .nyc_output/
@@ -57,3 +61,8 @@ Thumbs.db
 .tmp/
 .eslintcache
 .stylelintcache
+
+# Package manager & bundler caches
+.pnpm-store/
+.turbo/
+.parcel-cache/

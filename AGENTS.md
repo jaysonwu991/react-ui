@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Single-package React component library (`@jayson991/react-ui`). No monorepo, no CI, no `opencode.json`. pnpm is the package manager (`pnpm-lock.yaml`).
+Single-package React component library (`@jayson991/react-ui`). No monorepo, no `opencode.json`. pnpm is the package manager (`pnpm-lock.yaml`).
 
 ## Commands
 
@@ -16,7 +16,7 @@ Single-package React component library (`@jayson991/react-ui`). No monorepo, no 
 ## Formatting
 
 - **oxfmt** (`oxfmt`) is the formatter, configured by `.oxfmtrc.json`: tabs, single quotes, 80-column width, no import/package.json sorting. `.editorconfig` also declares `indent_style = tab`.
-- oxfmt covers TS/TSX, JSON, Markdown, YAML, and SCSS. Generated icon assets are ignored via `ignorePatterns` (`iconfont.js`/`.css`/`.json`, `demo.*`).
+- oxfmt covers TS/TSX, JSON, Markdown, YAML, and SCSS. Generated icon assets are ignored via `ignorePatterns` (`iconfont.js`/`.css`/`.json`).
 - The repo was historically inconsistent (some files 2-space); `pnpm format` normalizes to tabs. Run it before committing.
 
 ## Toolchain quirks (do not "clean up")
@@ -39,12 +39,16 @@ Single-package React component library (`@jayson991/react-ui`). No monorepo, no 
 - Icon fonts/SVG live in `src/assets/icons/` (`iconfont.css`/`.js`), lazy-loaded through `src/assets/icons/loader.ts` (`loadIconFont`, `loadIconSvg`, `loadAllIcons`). `.storybook/preview.ts` imports them manually.
 - Storybook picks up `src/**/*.stories.tsx`; `src/stories/Introduction.stories.tsx` is a live full-library overview. Autodocs are enabled globally via `tags: ['autodocs']` in `.storybook/preview.ts` and require `@storybook/addon-docs` (Storybook 10 has no `addon-essentials`).
 - The global `layout: 'centered'` makes `#storybook-root` shrink-to-fit, so full-width components (e.g. `Progress`) collapse unless their story sets `parameters.layout = 'padded'`. `.storybook/main.ts` raises `build.chunkSizeWarningLimit` to 1200 kB because Storybook's own iframe/docs bundles exceed Vite's 500 kB default.
-- Long-form docs live in `docs/` (`BUNDLE_OPTIMIZATION.md`, `PROJECT_SUMMARY.md`, `QUICK_START.md`); root holds `README.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `LICENSE`.
+- Root holds `README.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `LICENSE`.
 - Tests are colocated, use Vitest globals + Testing Library + jsdom (`vitest.setup.ts`). 474 tests across 22 files; coverage thresholds are 70% in `vite.config.mts`; `include` is pinned to `src/**/*.test.{ts,tsx}` so emitted `lib/` files are never collected. `pnpm lint` passes clean.
 
 ## Build / publish quirk
 
 `vite build` is single-entry (`src/index.ts`). It emits `lib/index.*`, `lib/react-ui.css`, async `iconfont-*` chunks, and **type declarations only** under `lib/components/**` and `lib/assets/icons/loader.d.ts` (via `vite-plugin-dts`). The `exports` map intentionally exposes only the package root and `./styles` (`lib/react-ui.css`); there are no per-component subpaths, so import everything from the root.
+
+## CI / release
+
+`.github/workflows/ci.yml` runs typecheck, lint, lint:sass, format:check, test, and build on pushes and PRs to `main` (pnpm 11, Node 24). `.github/workflows/publish.yml` triggers on `v*` tags, reruns the checks, stamps the tag version into `package.json` (`npm version --no-git-tag-version`), builds, and publishes with `npm publish --access public` using the `NPM_TOKEN` secret.
 
 ## Conventions
 
