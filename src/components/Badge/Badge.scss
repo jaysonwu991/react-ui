@@ -1,0 +1,89 @@
+@use '../../styles/utilities' as *;
+
+// Badge Component Styles
+.badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-weight: 500;
+	line-height: 1;
+	white-space: nowrap;
+	border: 1px solid transparent;
+	border-radius: var(--rui-radius, #{$radius-full});
+
+	@include transition-fast;
+
+	&--small {
+		padding: 2px 8px;
+		font-size: 11px;
+	}
+
+	&--medium {
+		padding: 4px 10px;
+		font-size: 12px;
+	}
+
+	&--large {
+		padding: 6px 12px;
+		font-size: 14px;
+	}
+
+	&--primary {
+		background-color: var(--rui-primary, #{$primary});
+		color: white;
+	}
+
+	&--secondary {
+		background-color: var(--rui-surface, #{$gray-200});
+		color: var(--rui-fg, #{$gray-800});
+	}
+
+	&--success {
+		background-color: var(--rui-success, #{$success});
+		color: white;
+	}
+
+	&--warning {
+		background-color: var(--rui-warning, #{$warning});
+		color: var(--rui-fg, #{$gray-900});
+	}
+
+	&--danger {
+		background-color: var(--rui-danger, #{$danger});
+		color: white;
+	}
+
+	&--info {
+		background-color: var(--rui-info, #{$info});
+		color: white;
+	}
+
+	&--outline {
+		background-color: transparent;
+		color: var(--rui-fg, #{$gray-700});
+		border-color: var(--rui-border, #{$gray-300});
+	}
+}
+
+.badge__dot {
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	background-color: currentcolor;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+// High contrast mode support
+@include high-contrast {
+	.badge {
+		border-color: currentcolor;
+	}
+}
+
+// Reduced motion support
+@include reduced-motion {
+	.badge {
+		transition: none;
+	}
+}

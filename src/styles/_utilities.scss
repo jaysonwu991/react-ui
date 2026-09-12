@@ -16,10 +16,38 @@ $gray-700: #374151;
 $gray-800: #1f2937;
 $gray-900: #111827;
 
+// Semantic colors
+$success: #10b981;
+$success-hover: #059669;
+$warning: #f59e0b;
+$warning-hover: #d97706;
+$danger: #ef4444;
+$danger-hover: #dc2626;
+$info: #3b82f6;
+$info-hover: #2563eb;
+
+// Radius scale
+$radius-sm: 4px;
+$radius-md: 6px;
+$radius-lg: 10px;
+$radius-full: 9999px;
+
 // Responsive breakpoints
 $mobile: 480px;
 $tablet: 768px;
 $desktop: 1024px;
+
+// Runtime-themable CSS custom properties. Components consume these with a
+// Sass fallback, e.g. `color: var(--rui-fg, #{$gray-900})`, so consumers can
+// re-theme the library by setting `--rui-*` on any ancestor (no rebuild).
+// Opt-in dark theme: set `data-rui-theme="dark"` on the root element.
+@mixin rui-theme-dark {
+	--rui-bg: #{$gray-900};
+	--rui-fg: #{$gray-50};
+	--rui-muted: #{$gray-400};
+	--rui-border: #{$gray-700};
+	--rui-surface: #{$gray-800};
+}
 
 // Common mixins
 @mixin focus-ring {

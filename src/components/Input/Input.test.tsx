@@ -20,7 +20,9 @@ describe('Input Component', () => {
 
 		it('should render with custom className', () => {
 			render(<Input className="custom-class" />);
-			expect(screen.getByRole('textbox').closest('.input-wrapper')).toHaveClass('custom-class');
+			expect(screen.getByRole('textbox').closest('.input-wrapper')).toHaveClass(
+				'custom-class',
+			);
 		});
 	});
 
@@ -45,13 +47,14 @@ describe('Input Component', () => {
 		});
 
 		it('should generate unique id when not provided', () => {
-			const { rerender } = render(<Input label="First" />);
-			const firstInput = screen.getByLabelText('First');
-			const firstId = firstInput.getAttribute('id');
-
-			rerender(<Input label="Second" />);
-			const secondInput = screen.getByLabelText('Second');
-			const secondId = secondInput.getAttribute('id');
+			render(
+				<>
+					<Input label="First" />
+					<Input label="Second" />
+				</>,
+			);
+			const firstId = screen.getByLabelText('First').getAttribute('id');
+			const secondId = screen.getByLabelText('Second').getAttribute('id');
 
 			expect(firstId).not.toBe(secondId);
 		});
@@ -61,7 +64,9 @@ describe('Input Component', () => {
 		it('should display error message', () => {
 			render(<Input error="This field is required" />);
 			expect(screen.getByText('This field is required')).toBeInTheDocument();
-			expect(screen.getByText('This field is required')).toHaveClass('input__error');
+			expect(screen.getByText('This field is required')).toHaveClass(
+				'input__error',
+			);
 		});
 
 		it('should add error class to input', () => {
@@ -85,7 +90,9 @@ describe('Input Component', () => {
 		it('should display helper text', () => {
 			render(<Input helperText="Enter your email address" />);
 			expect(screen.getByText('Enter your email address')).toBeInTheDocument();
-			expect(screen.getByText('Enter your email address')).toHaveClass('input__helper');
+			expect(screen.getByText('Enter your email address')).toHaveClass(
+				'input__helper',
+			);
 		});
 
 		it('should not display helper text when not provided', () => {
@@ -131,9 +138,9 @@ describe('Input Component', () => {
 
 		it('should not be full width by default', () => {
 			render(<Input />);
-			expect(screen.getByRole('textbox').closest('.input-wrapper')).not.toHaveClass(
-				'input-wrapper--full-width',
-			);
+			expect(
+				screen.getByRole('textbox').closest('.input-wrapper'),
+			).not.toHaveClass('input-wrapper--full-width');
 		});
 	});
 
@@ -155,7 +162,9 @@ describe('Input Component', () => {
 		});
 
 		it('should render with both prefix and suffix', () => {
-			const { container } = render(<Input prefix={<span>https://</span>} suffix={<span>.com</span>} />);
+			const { container } = render(
+				<Input prefix={<span>https://</span>} suffix={<span>.com</span>} />,
+			);
 			const prefix = container.querySelector('.input__prefix');
 			const suffix = container.querySelector('.input__suffix');
 			expect(prefix).toBeInTheDocument();
@@ -226,7 +235,9 @@ describe('Input Component', () => {
 		it('should update value when controlled', async () => {
 			const ControlledInput = () => {
 				const [value, setValue] = useState('');
-				return <Input value={value} onChange={(e) => setValue(e.target.value)} />;
+				return (
+					<Input value={value} onChange={(e) => setValue(e.target.value)} />
+				);
 			};
 			const user = userEvent.setup();
 			render(<ControlledInput />);
@@ -272,8 +283,16 @@ describe('Input Component', () => {
 			expect(screen.getByLabelText('Email')).toBeInTheDocument();
 			expect(screen.getByText('Invalid email')).toBeInTheDocument();
 			const input = screen.getByRole('textbox');
-			expect(input).toHaveClass('input--large', 'input--error', 'input--with-prefix', 'input--with-suffix');
-			expect(input.closest('.input-wrapper')).toHaveClass('input-wrapper--full-width', 'custom');
+			expect(input).toHaveClass(
+				'input--large',
+				'input--error',
+				'input--with-prefix',
+				'input--with-suffix',
+			);
+			expect(input.closest('.input-wrapper')).toHaveClass(
+				'input-wrapper--full-width',
+				'custom',
+			);
 			expect(container.querySelector('.input__prefix')).toBeInTheDocument();
 			expect(container.querySelector('.input__suffix')).toBeInTheDocument();
 		});

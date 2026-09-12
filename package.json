@@ -37,33 +37,7 @@
 			"import": "./lib/index.js",
 			"require": "./lib/index.cjs"
 		},
-		"./styles": "./lib/react-ui.css",
-		"./Modal": {
-			"types": "./lib/components/Modal/index.d.ts",
-			"import": "./lib/components/Modal/index.js"
-		},
-		"./Button": {
-			"types": "./lib/components/Button/index.d.ts",
-			"import": "./lib/components/Button/index.js"
-		},
-		"./Input": {
-			"types": "./lib/components/Input/index.d.ts",
-			"import": "./lib/components/Input/index.js"
-		},
-		"./Icon": {
-			"types": "./lib/components/Icon/index.d.ts",
-			"import": "./lib/components/Icon/index.js"
-		},
-		"./Calendar": {
-			"types": "./lib/components/Calendar/index.d.ts",
-			"import": "./lib/components/Calendar/index.js"
-		},
-		"./Modal/styles": "./lib/components/Modal/styles.js",
-		"./Button/styles": "./lib/components/Button/styles.js",
-		"./Input/styles": "./lib/components/Input/styles.js",
-		"./Icon/styles": "./lib/components/Icon/styles.js",
-		"./Calendar/styles": "./lib/components/Calendar/styles.js",
-		"./icons/loader": "./lib/assets/icons/loader.js"
+		"./styles": "./lib/react-ui.css"
 	},
 	"files": [
 		"lib",
@@ -80,10 +54,12 @@
 	],
 	"scripts": {
 		"build": "vite build",
-		"type-check": "tsc --noEmit",
+		"typecheck": "tsc --noEmit",
 		"lint": "oxlint src",
 		"lint:sass": "stylelint \"src/**/*.scss\"",
-		"format": "oxlint --fix src",
+		"lint:fix": "oxlint --fix src",
+		"format": "oxfmt .",
+		"format:check": "oxfmt --check .",
 		"format:sass": "stylelint \"src/**/*.scss\" --fix",
 		"test": "vitest run",
 		"test:watch": "vitest",
@@ -97,31 +73,34 @@
 		"react-dom": ">=18.0.0"
 	},
 	"devDependencies": {
-		"@storybook/addon-links": "^10.1.8",
-		"@storybook/react": "^10.1.8",
-		"@storybook/react-vite": "^10.1.8",
-		"@testing-library/jest-dom": "^6.9.1",
-		"@testing-library/react": "^16.3.0",
-		"@testing-library/user-event": "^14.6.1",
-		"@types/node": "^25.0.2",
-		"@types/react": "^19.2.7",
-		"@types/react-dom": "^19.2.3",
-		"@vitejs/plugin-react": "^5.1.2",
-		"@vitest/coverage-v8": "^4.0.15",
-		"@vitest/ui": "^4.0.15",
-		"jsdom": "^27.3.0",
-		"oxlint": "^1.32.0",
-		"react": "^19.2.3",
-		"react-dom": "^19.2.3",
-		"sass": "^1.96.0",
-		"storybook": "^10.1.10",
-		"stylelint": "^16.26.1",
-		"stylelint-config-standard-scss": "^16.0.0",
-		"stylelint-scss": "^6.13.0",
-		"typescript": "^5.9.3",
-		"vite": "^7.2.7",
-		"vite-plugin-dts": "^4.5.4",
-		"vitest": "^4.0.15"
+		"@storybook/addon-docs": "^10.6.0",
+		"@storybook/addon-links": "^10.6.0",
+		"@storybook/react": "^10.6.0",
+		"@storybook/react-vite": "^10.6.0",
+		"@testing-library/jest-dom": "^7.0.1",
+		"@testing-library/react": "^16.3.3",
+		"@testing-library/user-event": "^14.6.7",
+		"@types/node": "^25.9.6",
+		"@types/react": "^19.3.0",
+		"@types/react-dom": "^19.3.0",
+		"@typescript/typescript6": "^6.0.2",
+		"@vitejs/plugin-react": "^6.1.1",
+		"@vitest/coverage-v8": "^5.0.0",
+		"@vitest/ui": "^5.0.0",
+		"jsdom": "^30.0.1",
+		"oxfmt": "^0.67.0",
+		"oxlint": "^1.82.0",
+		"react": "^19.3.0",
+		"react-dom": "^19.3.0",
+		"sass": "^1.104.0",
+		"storybook": "^10.6.0",
+		"stylelint": "^17.15.0",
+		"stylelint-config-standard-scss": "^17.0.0",
+		"stylelint-scss": "^7.2.0",
+		"typescript": "^7.0.2",
+		"vite": "^8.3.0",
+		"vite-plugin-dts": "^5.1.0",
+		"vitest": "^5.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

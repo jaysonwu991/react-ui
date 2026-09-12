@@ -1,0 +1,43 @@
+@use '../../styles/utilities' as *;
+
+// Separator Component Styles
+.separator {
+	flex-shrink: 0;
+	background: var(--rui-border, #{$gray-200});
+
+	&--horizontal {
+		width: 100%;
+		height: 1px;
+	}
+
+	&--vertical {
+		width: 1px;
+		height: 100%;
+		min-height: 1em;
+		align-self: stretch;
+	}
+
+	&--with-label {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		height: auto;
+		background: transparent;
+	}
+}
+
+.separator__line {
+	flex: 1 1 auto;
+	height: 1px;
+	background: var(--rui-border, #{$gray-200});
+}
+
+.separator__label {
+	flex-shrink: 0;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--rui-muted, #{$gray-500});
+}

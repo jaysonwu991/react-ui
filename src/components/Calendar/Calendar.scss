@@ -1,5 +1,5 @@
 // Calendar Component Styles - Optimized
-@import '../../styles/utilities';
+@use '../../styles/utilities' as *;
 
 .calendar {
 	display: inline-flex;
@@ -8,7 +8,9 @@
 	max-width: 350px;
 	background: #fff;
 	border-radius: 12px;
-	box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
+	box-shadow:
+		0 4px 6px -1px rgb(0 0 0 / 10%),
+		0 2px 4px -2px rgb(0 0 0 / 10%);
 	padding: 16px;
 	font-family: inherit;
 	user-select: none;
@@ -41,9 +43,13 @@
 		font-size: 16px;
 		font-weight: 600;
 		color: $gray-800;
+
 		@include button-reset;
+
 		border-radius: 6px;
+
 		@include transition-standard;
+
 		text-align: center;
 
 		&:hover {
@@ -70,8 +76,11 @@
 		font-size: 20px;
 		font-weight: 600;
 		color: $gray-500;
+
 		@include button-reset;
+
 		border-radius: 6px;
+
 		@include transition-standard;
 
 		&:hover {
@@ -158,9 +167,12 @@
 		font-size: 14px;
 		font-weight: 500;
 		color: $gray-700;
+
 		@include button-reset;
+
 		border: 2px solid transparent;
 		border-radius: 8px;
+
 		@include transition-fast;
 
 		&:hover:not(&--disabled, &--empty) {
@@ -171,6 +183,7 @@
 
 		&:focus-visible {
 			@include focus-ring;
+
 			z-index: 1;
 		}
 
@@ -285,9 +298,12 @@
 		font-size: 14px;
 		font-weight: 500;
 		color: $gray-700;
+
 		@include button-reset;
+
 		border: 2px solid transparent;
 		border-radius: 8px;
+
 		@include transition-standard;
 
 		&:hover:not(:disabled) {
@@ -343,6 +359,7 @@
 		border: 1px solid $primary;
 		border-radius: 6px;
 		cursor: pointer;
+
 		@include transition-standard;
 
 		&:hover:not(:disabled) {

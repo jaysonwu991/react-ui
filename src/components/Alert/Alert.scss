@@ -1,0 +1,110 @@
+@use '../../styles/utilities' as *;
+
+// Alert Component Styles
+.alert {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 12px 16px;
+	color: var(--rui-fg, #{$gray-900});
+	background: var(--alert-bg, #{$gray-50});
+	border: 1px solid var(--alert-border, #{$gray-200});
+	border-left: 4px solid var(--alert-accent, #{$info});
+	border-radius: var(--rui-radius, #{$radius-md});
+
+	@include transition-standard;
+
+	&--info {
+		--alert-accent: var(--rui-info, #{$info});
+		--alert-bg: #eff6ff;
+		--alert-border: #bfdbfe;
+	}
+
+	&--success {
+		--alert-accent: var(--rui-success, #{$success});
+		--alert-bg: #ecfdf5;
+		--alert-border: #a7f3d0;
+	}
+
+	&--warning {
+		--alert-accent: var(--rui-warning, #{$warning});
+		--alert-bg: #fffbeb;
+		--alert-border: #fde68a;
+	}
+
+	&--danger {
+		--alert-accent: var(--rui-danger, #{$danger});
+		--alert-bg: #fef2f2;
+		--alert-border: #fecaca;
+	}
+}
+
+.alert__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	font-size: 18px;
+	line-height: 1;
+	color: var(--alert-accent, #{$info});
+}
+
+.alert__body {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.alert__title {
+	margin-bottom: 2px;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+
+.alert__content {
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.alert__close {
+	@include button-reset;
+
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 24px;
+	height: 24px;
+	margin: -2px -4px 0 0;
+	font-size: 20px;
+	line-height: 1;
+	color: var(--rui-muted, #{$gray-500});
+	border-radius: var(--rui-radius, #{$radius-sm});
+
+	@include transition-fast;
+
+	&:hover {
+		color: var(--rui-fg, #{$gray-900});
+		background: rgb(0 0 0 / 5%);
+	}
+
+	&:focus-visible {
+		@include focus-ring;
+	}
+}
+
+// High contrast mode support
+@include high-contrast {
+	.alert {
+		border-width: 2px;
+		border-left-width: 4px;
+	}
+}
+
+// Reduced motion support
+@include reduced-motion {
+	.alert,
+	.alert__close {
+		transition: none;
+	}
+}

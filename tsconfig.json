@@ -1,37 +1,37 @@
 {
-  "compilerOptions": {
-    /* Language and Environment */
-    "target": "ES2015",
-    "lib": ["ES2015", "DOM", "DOM.Iterable"],
-    "jsx": "react-jsx",
+	"compilerOptions": {
+		/* Language and Environment */
+		"target": "ES2015",
+		"lib": ["ES2015", "DOM", "DOM.Iterable"],
+		"jsx": "react-jsx",
 
-    /* Modules */
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "types": ["vitest", "@testing-library/jest-dom"],
+		/* Modules */
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"types": ["vitest", "@testing-library/jest-dom"],
 
-    /* Emit */
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "./lib",
-    "removeComments": true,
+		/* Emit */
+		"declaration": true,
+		"declarationMap": true,
+		"sourceMap": true,
+		"outDir": "./lib",
+		"removeComments": true,
 
-    /* Interop Constraints */
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
+		/* Interop Constraints */
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
 
-    /* Type Checking */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+		/* Type Checking */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
 
-    /* Completeness */
-    "skipLibCheck": true
-  },
-  "include": ["src/**/*"]
+		/* Completeness */
+		"skipLibCheck": true
+	},
+	"include": ["src/**/*", "vitest.setup.ts"]
 }

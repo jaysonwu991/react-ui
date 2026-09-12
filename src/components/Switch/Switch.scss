@@ -1,0 +1,100 @@
+@use '../../styles/utilities' as *;
+
+.switch-wrapper {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.switch {
+	@include button-reset;
+
+	position: relative;
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	background: var(--rui-border, #{$gray-300});
+	border-radius: var(--rui-radius, #{$radius-full});
+
+	@include transition-standard;
+
+	&:focus-visible {
+		@include focus-ring;
+	}
+
+	&--small {
+		width: 32px;
+		height: 18px;
+
+		.switch__thumb {
+			width: 14px;
+			height: 14px;
+		}
+
+		&.switch--checked .switch__thumb {
+			transform: translateX(14px);
+		}
+	}
+
+	&--medium {
+		width: 40px;
+		height: 22px;
+
+		.switch__thumb {
+			width: 18px;
+			height: 18px;
+		}
+
+		&.switch--checked .switch__thumb {
+			transform: translateX(18px);
+		}
+	}
+
+	&--large {
+		width: 52px;
+		height: 28px;
+
+		.switch__thumb {
+			width: 24px;
+			height: 24px;
+		}
+
+		&.switch--checked .switch__thumb {
+			transform: translateX(24px);
+		}
+	}
+
+	&--checked {
+		background: var(--rui-primary, #{$primary});
+	}
+
+	&--disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	&__thumb {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		background: #fff;
+		border-radius: var(--rui-radius, #{$radius-full});
+		box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+
+		@include transition-standard;
+	}
+}
+
+.switch__label {
+	font-size: 14px;
+	line-height: 1.4;
+	color: var(--rui-fg, #{$gray-800});
+	cursor: pointer;
+}
+
+@include reduced-motion {
+	.switch,
+	.switch__thumb {
+		transition: none;
+	}
+}

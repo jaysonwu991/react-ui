@@ -1,0 +1,75 @@
+@use '../../styles/utilities' as *;
+
+.tabs {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	width: 100%;
+
+	&--vertical {
+		flex-direction: row;
+		align-items: flex-start;
+	}
+
+	&__list {
+		display: flex;
+		gap: 4px;
+		border-bottom: 1px solid var(--rui-border, #{$gray-200});
+
+		.tabs--vertical & {
+			flex-direction: column;
+			border-bottom: none;
+			border-right: 1px solid var(--rui-border, #{$gray-200});
+			padding-right: 4px;
+		}
+	}
+
+	&__trigger {
+		@include button-reset;
+
+		padding: 8px 14px;
+		color: var(--rui-muted, #{$gray-500});
+		font: inherit;
+		font-weight: 500;
+		border-bottom: 2px solid transparent;
+		border-radius: var(--rui-radius, #{$radius-md})
+			var(--rui-radius, #{$radius-md}) 0 0;
+
+		@include transition-fast;
+
+		&:hover {
+			color: var(--rui-fg, #{$gray-900});
+			background: var(--rui-surface, #{$gray-50});
+		}
+
+		&:focus-visible {
+			@include focus-ring;
+		}
+
+		&--active {
+			color: var(--rui-primary, #{$primary});
+			border-bottom-color: var(--rui-primary, #{$primary});
+		}
+
+		.tabs--vertical & {
+			border-bottom: none;
+			border-left: 2px solid transparent;
+			border-radius: var(--rui-radius, #{$radius-md}) 0 0
+				var(--rui-radius, #{$radius-md});
+			text-align: left;
+		}
+
+		.tabs--vertical &.tabs__trigger--active {
+			border-left-color: var(--rui-primary, #{$primary});
+		}
+	}
+
+	&__content {
+		padding: 12px 4px;
+		color: var(--rui-fg, #{$gray-900});
+
+		&:focus-visible {
+			@include focus-ring;
+		}
+	}
+}

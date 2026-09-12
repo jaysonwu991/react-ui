@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Calendar, { type DateRange } from './Calendar';
 
 const meta: Meta<typeof Calendar> = {
-	title: 'Components/Calendar',
+	title: 'Calendar',
 	component: Calendar,
 	parameters: {
 		docs: {
@@ -102,11 +102,15 @@ export const WithWeekNumbers: Story = {
 
 // Selection Modes
 export const SingleDateSelection: Story = {
-	render: () => {
+	render: function SingleDateSelectionStory() {
 		const [value, setValue] = useState<Date | null>(new Date());
 		return (
 			<div>
-				<Calendar value={value} onChange={(date) => setValue(date as Date)} mode="single" />
+				<Calendar
+					value={value}
+					onChange={(date) => setValue(date as Date)}
+					mode="single"
+				/>
 				<div style={{ marginTop: '16px', fontSize: '14px', color: '#6b7280' }}>
 					Selected: {value ? value.toLocaleDateString() : 'None'}
 				</div>
@@ -116,11 +120,18 @@ export const SingleDateSelection: Story = {
 };
 
 export const MultipleDateSelection: Story = {
-	render: () => {
-		const [value, setValue] = useState<Date[]>([new Date(), new Date(Date.now() + 86400000)]);
+	render: function MultipleDateSelectionStory() {
+		const [value, setValue] = useState<Date[]>([
+			new Date(),
+			new Date(Date.now() + 86400000),
+		]);
 		return (
 			<div>
-				<Calendar value={value} onChange={(dates) => setValue(dates as Date[])} mode="multiple" />
+				<Calendar
+					value={value}
+					onChange={(dates) => setValue(dates as Date[])}
+					mode="multiple"
+				/>
 				<div style={{ marginTop: '16px', fontSize: '14px', color: '#6b7280' }}>
 					Selected {value.length} date(s):
 					<ul style={{ margin: '8px 0', paddingLeft: '20px' }}>
@@ -135,18 +146,25 @@ export const MultipleDateSelection: Story = {
 };
 
 export const DateRangeSelection: Story = {
-	render: () => {
+	render: function DateRangeSelectionStory() {
 		const [value, setValue] = useState<DateRange>({
 			start: new Date(),
 			end: new Date(Date.now() + 7 * 86400000),
 		});
 		return (
 			<div>
-				<Calendar value={value} onChange={(range) => setValue(range as DateRange)} mode="range" />
+				<Calendar
+					value={value}
+					onChange={(range) => setValue(range as DateRange)}
+					mode="range"
+				/>
 				<div style={{ marginTop: '16px', fontSize: '14px', color: '#6b7280' }}>
-					Range: {value.start.toLocaleDateString()} - {value.end.toLocaleDateString()}
+					Range: {value.start.toLocaleDateString()} -{' '}
+					{value.end.toLocaleDateString()}
 					<br />
-					Days: {Math.ceil((value.end.getTime() - value.start.getTime()) / 86400000) + 1}
+					Days:{' '}
+					{Math.ceil((value.end.getTime() - value.start.getTime()) / 86400000) +
+						1}
 				</div>
 			</div>
 		);
@@ -166,7 +184,8 @@ export const WithMinMaxDates: Story = {
 			<div>
 				<Calendar minDate={minDate} maxDate={maxDate} mode="single" />
 				<div style={{ marginTop: '16px', fontSize: '14px', color: '#6b7280' }}>
-					Selectable range: {minDate.toLocaleDateString()} - {maxDate.toLocaleDateString()}
+					Selectable range: {minDate.toLocaleDateString()} -{' '}
+					{maxDate.toLocaleDateString()}
 				</div>
 			</div>
 		);
@@ -227,7 +246,8 @@ export const WithHighlightedDates: Story = {
 			<div>
 				<Calendar highlightedDates={highlightedDates} mode="single" />
 				<div style={{ marginTop: '16px', fontSize: '14px', color: '#6b7280' }}>
-					Highlighted dates: 5th, 12th, 18th, 24th (e.g., important dates or events)
+					Highlighted dates: 5th, 12th, 18th, 24th (e.g., important dates or
+					events)
 				</div>
 			</div>
 		);
@@ -377,7 +397,7 @@ export const LocaleJapanese: Story = {
 
 // Real-world Examples
 export const BookingCalendar: Story = {
-	render: () => {
+	render: function BookingCalendarStory() {
 		const [value, setValue] = useState<DateRange>({
 			start: new Date(),
 			end: new Date(Date.now() + 3 * 86400000),
@@ -389,7 +409,9 @@ export const BookingCalendar: Story = {
 		maxDate.setMonth(today.getMonth() + 6);
 
 		const calculateNights = () => {
-			return Math.ceil((value.end.getTime() - value.start.getTime()) / 86400000);
+			return Math.ceil(
+				(value.end.getTime() - value.start.getTime()) / 86400000,
+			);
 		};
 
 		const calculatePrice = () => {
@@ -400,7 +422,9 @@ export const BookingCalendar: Story = {
 
 		return (
 			<div>
-				<h3 style={{ marginTop: 0, fontSize: '18px', fontWeight: 600 }}>Hotel Booking</h3>
+				<h3 style={{ marginTop: 0, fontSize: '18px', fontWeight: 600 }}>
+					Hotel Booking
+				</h3>
 				<Calendar
 					value={value}
 					onChange={(range) => setValue(range as DateRange)}
@@ -419,7 +443,9 @@ export const BookingCalendar: Story = {
 						fontSize: '14px',
 					}}
 				>
-					<div style={{ fontWeight: 600, marginBottom: '8px' }}>Booking Summary</div>
+					<div style={{ fontWeight: 600, marginBottom: '8px' }}>
+						Booking Summary
+					</div>
 					<div style={{ color: '#6b7280' }}>
 						Check-in: {value.start.toLocaleDateString()}
 						<br />
@@ -438,13 +464,16 @@ export const BookingCalendar: Story = {
 };
 
 export const EventCalendar: Story = {
-	render: () => {
+	render: function EventCalendarStory() {
 		const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
 		const events: Record<string, string[]> = {
 			[new Date(2024, 11, 15).toDateString()]: ['Team Meeting', 'Code Review'],
 			[new Date(2024, 11, 18).toDateString()]: ['Project Deadline'],
-			[new Date(2024, 11, 20).toDateString()]: ['Client Call', 'Sprint Planning'],
+			[new Date(2024, 11, 20).toDateString()]: [
+				'Client Call',
+				'Sprint Planning',
+			],
 			[new Date(2024, 11, 25).toDateString()]: ['Holiday Party'],
 		};
 
@@ -475,11 +504,15 @@ export const EventCalendar: Story = {
 			);
 		};
 
-		const dateEvents = selectedDate ? events[selectedDate.toDateString()] : null;
+		const dateEvents = selectedDate
+			? events[selectedDate.toDateString()]
+			: null;
 
 		return (
 			<div>
-				<h3 style={{ marginTop: 0, fontSize: '18px', fontWeight: 600 }}>Event Calendar</h3>
+				<h3 style={{ marginTop: 0, fontSize: '18px', fontWeight: 600 }}>
+					Event Calendar
+				</h3>
 				<Calendar
 					value={selectedDate}
 					onChange={(date) => setSelectedDate(date as Date)}
@@ -497,15 +530,19 @@ export const EventCalendar: Story = {
 					}}
 				>
 					<div style={{ fontWeight: 600, marginBottom: '8px' }}>
-						{selectedDate ? selectedDate.toLocaleDateString('en-US', {
-							weekday: 'long',
-							year: 'numeric',
-							month: 'long',
-							day: 'numeric'
-						}) : 'No date selected'}
+						{selectedDate
+							? selectedDate.toLocaleDateString('en-US', {
+									weekday: 'long',
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric',
+								})
+							: 'No date selected'}
 					</div>
 					{dateEvents && dateEvents.length > 0 ? (
-						<ul style={{ margin: '8px 0', paddingLeft: '20px', color: '#6b7280' }}>
+						<ul
+							style={{ margin: '8px 0', paddingLeft: '20px', color: '#6b7280' }}
+						>
 							{dateEvents.map((event, i) => (
 								<li key={i}>{event}</li>
 							))}
@@ -520,7 +557,7 @@ export const EventCalendar: Story = {
 };
 
 export const WorkScheduleCalendar: Story = {
-	render: () => {
+	render: function WorkScheduleCalendarStory() {
 		const [selectedDates, setSelectedDates] = useState<Date[]>([]);
 
 		const today = new Date();
@@ -533,7 +570,9 @@ export const WorkScheduleCalendar: Story = {
 
 		return (
 			<div>
-				<h3 style={{ marginTop: 0, fontSize: '18px', fontWeight: 600 }}>Select Work Days</h3>
+				<h3 style={{ marginTop: 0, fontSize: '18px', fontWeight: 600 }}>
+					Select Work Days
+				</h3>
 				<Calendar
 					value={selectedDates}
 					onChange={(dates) => setSelectedDates(dates as Date[])}
@@ -556,7 +595,13 @@ export const WorkScheduleCalendar: Story = {
 						Selected Work Days: {selectedDates.length}
 					</div>
 					{selectedDates.length > 0 ? (
-						<div style={{ color: '#6b7280', maxHeight: '120px', overflowY: 'auto' }}>
+						<div
+							style={{
+								color: '#6b7280',
+								maxHeight: '120px',
+								overflowY: 'auto',
+							}}
+						>
 							{selectedDates
 								.sort((a, b) => a.getTime() - b.getTime())
 								.map((date, i) => (
@@ -564,13 +609,15 @@ export const WorkScheduleCalendar: Story = {
 										{date.toLocaleDateString('en-US', {
 											weekday: 'short',
 											month: 'short',
-											day: 'numeric'
+											day: 'numeric',
 										})}
 									</div>
 								))}
 						</div>
 					) : (
-						<div style={{ color: '#9ca3af' }}>No days selected (weekends disabled)</div>
+						<div style={{ color: '#9ca3af' }}>
+							No days selected (weekends disabled)
+						</div>
 					)}
 				</div>
 			</div>
@@ -580,14 +627,23 @@ export const WorkScheduleCalendar: Story = {
 
 // Comparison
 export const SideBySideComparison: Story = {
-	render: () => {
+	render: function SideBySideComparisonStory() {
 		const [startDate, setStartDate] = useState<Date>(new Date());
-		const [endDate, setEndDate] = useState<Date>(new Date(Date.now() + 7 * 86400000));
+		const [endDate, setEndDate] = useState<Date>(
+			new Date(Date.now() + 7 * 86400000),
+		);
 
 		return (
 			<div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
 				<div>
-					<h4 style={{ marginTop: 0, fontSize: '14px', fontWeight: 600, marginBottom: '12px' }}>
+					<h4
+						style={{
+							marginTop: 0,
+							fontSize: '14px',
+							fontWeight: 600,
+							marginBottom: '12px',
+						}}
+					>
 						Start Date
 					</h4>
 					<Calendar
@@ -598,7 +654,14 @@ export const SideBySideComparison: Story = {
 					/>
 				</div>
 				<div>
-					<h4 style={{ marginTop: 0, fontSize: '14px', fontWeight: 600, marginBottom: '12px' }}>
+					<h4
+						style={{
+							marginTop: 0,
+							fontSize: '14px',
+							fontWeight: 600,
+							marginBottom: '12px',
+						}}
+					>
 						End Date
 					</h4>
 					<Calendar
@@ -615,7 +678,7 @@ export const SideBySideComparison: Story = {
 
 // All Features Combined
 export const AllFeatures: Story = {
-	render: () => {
+	render: function AllFeaturesStory() {
 		const [value, setValue] = useState<DateRange>({
 			start: new Date(),
 			end: new Date(Date.now() + 5 * 86400000),
@@ -653,8 +716,12 @@ export const AllFeatures: Story = {
 						fontSize: '14px',
 					}}
 				>
-					<div style={{ fontWeight: 600, marginBottom: '8px' }}>Features Enabled:</div>
-					<ul style={{ margin: '8px 0', paddingLeft: '20px', color: '#6b7280' }}>
+					<div style={{ fontWeight: 600, marginBottom: '8px' }}>
+						Features Enabled:
+					</div>
+					<ul
+						style={{ margin: '8px 0', paddingLeft: '20px', color: '#6b7280' }}
+					>
 						<li>Range selection mode</li>
 						<li>Week starts on Monday</li>
 						<li>Week numbers displayed</li>

@@ -12,7 +12,11 @@ describe('Calendar', () => {
 
 		it('renders with default month view', () => {
 			render(<Calendar />);
-			expect(screen.getByText(/january|february|march|april|may|june|july|august|september|october|november|december/i)).toBeInTheDocument();
+			expect(
+				screen.getByText(
+					/january|february|march|april|may|june|july|august|september|october|november|december/i,
+				),
+			).toBeInTheDocument();
 		});
 
 		it('renders week days', () => {
@@ -23,7 +27,9 @@ describe('Calendar', () => {
 
 		it('renders navigation buttons', () => {
 			render(<Calendar />);
-			const navButtons = screen.getAllByRole('button', { name: /previous|next/i });
+			const navButtons = screen.getAllByRole('button', {
+				name: /previous|next/i,
+			});
 			expect(navButtons).toHaveLength(2);
 		});
 
@@ -59,7 +65,9 @@ describe('Calendar', () => {
 
 		it('renders disabled state', () => {
 			const { container } = render(<Calendar disabled={true} />);
-			expect(container.querySelector('.calendar--disabled')).toBeInTheDocument();
+			expect(
+				container.querySelector('.calendar--disabled'),
+			).toBeInTheDocument();
 		});
 	});
 
@@ -84,9 +92,9 @@ describe('Calendar', () => {
 			const onChange = vi.fn();
 			render(<Calendar onChange={onChange} mode="single" />);
 
-			const dateButtons = screen.getAllByRole('button').filter(btn =>
-				/^\d+$/.test(btn.textContent || '')
-			);
+			const dateButtons = screen
+				.getAllByRole('button')
+				.filter((btn) => /^\d+$/.test(btn.textContent || ''));
 			if (dateButtons.length > 0) {
 				fireEvent.click(dateButtons[0]);
 				expect(onChange).toHaveBeenCalled();
@@ -96,7 +104,9 @@ describe('Calendar', () => {
 		it('highlights selected date', () => {
 			const today = new Date();
 			const { container } = render(<Calendar value={today} mode="single" />);
-			const selectedDays = container.querySelectorAll('.calendar__day--selected');
+			const selectedDays = container.querySelectorAll(
+				'.calendar__day--selected',
+			);
 			expect(selectedDays.length).toBeGreaterThan(0);
 		});
 
@@ -114,7 +124,9 @@ describe('Calendar', () => {
 			render(<Calendar value={dates} onChange={onChange} mode="multiple" />);
 
 			const { container } = render(<Calendar value={dates} mode="multiple" />);
-			const selectedDays = container.querySelectorAll('.calendar__day--selected');
+			const selectedDays = container.querySelectorAll(
+				'.calendar__day--selected',
+			);
 			expect(selectedDays.length).toBeGreaterThan(0);
 		});
 	});
@@ -128,7 +140,9 @@ describe('Calendar', () => {
 			const range: DateRange = { start: today, end: nextWeek };
 			const { container } = render(<Calendar value={range} mode="range" />);
 
-			const rangeStart = container.querySelectorAll('.calendar__day--range-start');
+			const rangeStart = container.querySelectorAll(
+				'.calendar__day--range-start',
+			);
 			const rangeEnd = container.querySelectorAll('.calendar__day--range-end');
 
 			expect(rangeStart.length).toBeGreaterThan(0);
@@ -143,31 +157,43 @@ describe('Calendar', () => {
 			const range: DateRange = { start: today, end: nextWeek };
 			const { container } = render(<Calendar value={range} mode="range" />);
 
-			const inRangeDays = container.querySelectorAll('.calendar__day--in-range');
+			const inRangeDays = container.querySelectorAll(
+				'.calendar__day--in-range',
+			);
 			expect(inRangeDays.length).toBeGreaterThan(0);
 		});
 	});
 
 	describe('Navigation', () => {
 		it('changes month when navigation buttons are clicked', () => {
-			const { container } = render(<Calendar defaultValue={new Date(2024, 5, 15)} />);
+			const { container } = render(
+				<Calendar defaultValue={new Date(2024, 5, 15)} />,
+			);
 
-			const initialMonth = container.querySelector('.calendar__header-title')?.textContent;
+			const initialMonth = container.querySelector(
+				'.calendar__header-title',
+			)?.textContent;
 
 			const nextButton = screen.getByRole('button', { name: /next/i });
 			fireEvent.click(nextButton);
 
-			const newMonth = container.querySelector('.calendar__header-title')?.textContent;
+			const newMonth = container.querySelector(
+				'.calendar__header-title',
+			)?.textContent;
 			expect(newMonth).not.toBe(initialMonth);
 		});
 
 		it('navigates to previous month', () => {
-			const { container } = render(<Calendar defaultValue={new Date(2024, 5, 15)} />);
+			const { container } = render(
+				<Calendar defaultValue={new Date(2024, 5, 15)} />,
+			);
 
 			const prevButton = screen.getByRole('button', { name: /previous/i });
 			fireEvent.click(prevButton);
 
-			expect(container.querySelector('.calendar__header-title')).toBeInTheDocument();
+			expect(
+				container.querySelector('.calendar__header-title'),
+			).toBeInTheDocument();
 		});
 	});
 
@@ -181,7 +207,9 @@ describe('Calendar', () => {
 			if (headerTitle) {
 				fireEvent.click(headerTitle);
 				// Year view should show months
-				expect(container.querySelector('.calendar__year-view')).toBeInTheDocument();
+				expect(
+					container.querySelector('.calendar__year-view'),
+				).toBeInTheDocument();
 			}
 		});
 
@@ -200,7 +228,9 @@ describe('Calendar', () => {
 	describe('Today Button', () => {
 		it('navigates to today when clicked', () => {
 			const onChange = vi.fn();
-			render(<Calendar onChange={onChange} defaultValue={new Date(2020, 0, 1)} />);
+			render(
+				<Calendar onChange={onChange} defaultValue={new Date(2020, 0, 1)} />,
+			);
 
 			const todayButton = screen.getByText('Today');
 			fireEvent.click(todayButton);
@@ -228,7 +258,9 @@ describe('Calendar', () => {
 			minDate.setDate(today.getDate() + 5);
 
 			const { container } = render(<Calendar minDate={minDate} />);
-			const disabledDays = container.querySelectorAll('.calendar__day--disabled');
+			const disabledDays = container.querySelectorAll(
+				'.calendar__day--disabled',
+			);
 			expect(disabledDays.length).toBeGreaterThan(0);
 		});
 
@@ -238,7 +270,9 @@ describe('Calendar', () => {
 			maxDate.setDate(today.getDate() - 5);
 
 			const { container } = render(<Calendar maxDate={maxDate} />);
-			const disabledDays = container.querySelectorAll('.calendar__day--disabled');
+			const disabledDays = container.querySelectorAll(
+				'.calendar__day--disabled',
+			);
 			expect(disabledDays.length).toBeGreaterThan(0);
 		});
 
@@ -247,7 +281,9 @@ describe('Calendar', () => {
 			const disabledDates = [today];
 
 			const { container } = render(<Calendar disabledDates={disabledDates} />);
-			const disabledDays = container.querySelectorAll('.calendar__day--disabled');
+			const disabledDays = container.querySelectorAll(
+				'.calendar__day--disabled',
+			);
 			expect(disabledDays.length).toBeGreaterThan(0);
 		});
 
@@ -258,7 +294,9 @@ describe('Calendar', () => {
 			};
 
 			const { container } = render(<Calendar disabledDates={isWeekend} />);
-			const disabledDays = container.querySelectorAll('.calendar__day--disabled');
+			const disabledDays = container.querySelectorAll(
+				'.calendar__day--disabled',
+			);
 			expect(disabledDays.length).toBeGreaterThan(0);
 		});
 
@@ -268,7 +306,9 @@ describe('Calendar', () => {
 
 			render(<Calendar onChange={onChange} disabledDates={[today]} />);
 
-			const disabledButtons = document.querySelectorAll('.calendar__day--disabled');
+			const disabledButtons = document.querySelectorAll(
+				'.calendar__day--disabled',
+			);
 			if (disabledButtons.length > 0) {
 				fireEvent.click(disabledButtons[0]);
 				expect(onChange).not.toHaveBeenCalled();
@@ -281,8 +321,12 @@ describe('Calendar', () => {
 			const today = new Date();
 			const highlightedDates = [today];
 
-			const { container } = render(<Calendar highlightedDates={highlightedDates} />);
-			const highlightedDays = container.querySelectorAll('.calendar__day--highlighted');
+			const { container } = render(
+				<Calendar highlightedDates={highlightedDates} />,
+			);
+			const highlightedDays = container.querySelectorAll(
+				'.calendar__day--highlighted',
+			);
 			expect(highlightedDays.length).toBeGreaterThan(0);
 		});
 
@@ -293,7 +337,9 @@ describe('Calendar', () => {
 			};
 
 			const { container } = render(<Calendar highlightedDates={isWeekday} />);
-			const highlightedDays = container.querySelectorAll('.calendar__day--highlighted');
+			const highlightedDays = container.querySelectorAll(
+				'.calendar__day--highlighted',
+			);
 			expect(highlightedDays.length).toBeGreaterThan(0);
 		});
 	});
@@ -301,7 +347,9 @@ describe('Calendar', () => {
 	describe('Adjacent Dates', () => {
 		it('shows adjacent month dates by default', () => {
 			const { container } = render(<Calendar />);
-			const adjacentDays = container.querySelectorAll('.calendar__day--adjacent');
+			const adjacentDays = container.querySelectorAll(
+				'.calendar__day--adjacent',
+			);
 			expect(adjacentDays.length).toBeGreaterThan(0);
 		});
 
@@ -314,7 +362,9 @@ describe('Calendar', () => {
 
 	describe('Custom Rendering', () => {
 		it('uses custom date renderer', () => {
-			const renderDate = (date: Date) => <span data-testid="custom-date">{date.getDate()}</span>;
+			const renderDate = (date: Date) => (
+				<span data-testid="custom-date">{date.getDate()}</span>
+			);
 			render(<Calendar renderDate={renderDate} />);
 
 			const customDates = screen.getAllByTestId('custom-date');
@@ -335,9 +385,11 @@ describe('Calendar', () => {
 			const onChange = vi.fn();
 			render(<Calendar onChange={onChange} keyboardNavigation={true} />);
 
-			const dateButtons = screen.getAllByRole('button').filter(btn =>
-				/^\d+$/.test(btn.textContent || '')
-			) as HTMLButtonElement[];
+			const dateButtons = screen
+				.getAllByRole('button')
+				.filter((btn) =>
+					/^\d+$/.test(btn.textContent || ''),
+				) as HTMLButtonElement[];
 
 			if (dateButtons.length > 0 && !dateButtons[0].disabled) {
 				fireEvent.keyDown(dateButtons[0], { key: 'Enter' });
@@ -349,9 +401,11 @@ describe('Calendar', () => {
 			const onChange = vi.fn();
 			render(<Calendar onChange={onChange} keyboardNavigation={true} />);
 
-			const dateButtons = screen.getAllByRole('button').filter(btn =>
-				/^\d+$/.test(btn.textContent || '')
-			) as HTMLButtonElement[];
+			const dateButtons = screen
+				.getAllByRole('button')
+				.filter((btn) =>
+					/^\d+$/.test(btn.textContent || ''),
+				) as HTMLButtonElement[];
 
 			if (dateButtons.length > 0 && !dateButtons[0].disabled) {
 				fireEvent.keyDown(dateButtons[0], { key: ' ' });
@@ -363,9 +417,9 @@ describe('Calendar', () => {
 			const onChange = vi.fn();
 			render(<Calendar onChange={onChange} keyboardNavigation={false} />);
 
-			const dateButtons = screen.getAllByRole('button').filter(btn =>
-				/^\d+$/.test(btn.textContent || '')
-			);
+			const dateButtons = screen
+				.getAllByRole('button')
+				.filter((btn) => /^\d+$/.test(btn.textContent || ''));
 
 			if (dateButtons.length > 0) {
 				fireEvent.keyDown(dateButtons[0], { key: 'Enter' });
@@ -377,10 +431,14 @@ describe('Calendar', () => {
 	describe('Disabled State', () => {
 		it('disables all interactions when disabled', () => {
 			const onChange = vi.fn();
-			const { container } = render(<Calendar disabled={true} onChange={onChange} />);
+			const { container } = render(
+				<Calendar disabled={true} onChange={onChange} />,
+			);
 
-			const allButtons = container.querySelectorAll('button') as NodeListOf<HTMLButtonElement>;
-			allButtons.forEach(button => {
+			const allButtons = container.querySelectorAll(
+				'button',
+			) as NodeListOf<HTMLButtonElement>;
+			allButtons.forEach((button) => {
 				expect(button).toBeDisabled();
 			});
 		});
@@ -389,32 +447,37 @@ describe('Calendar', () => {
 	describe('Accessibility', () => {
 		it('has proper ARIA labels', () => {
 			render(<Calendar />);
-			expect(screen.getByRole('application')).toHaveAttribute('aria-label', 'Calendar');
+			expect(screen.getByRole('application')).toHaveAttribute(
+				'aria-label',
+				'Calendar',
+			);
 		});
 
 		it('marks selected dates with aria-selected', () => {
 			const today = new Date();
 			const { container } = render(<Calendar value={today} mode="single" />);
 
-			const selectedButtons = container.querySelectorAll('.calendar__day--selected');
+			const selectedButtons = container.querySelectorAll(
+				'.calendar__day--selected',
+			);
 			expect(selectedButtons.length).toBeGreaterThan(0);
 		});
 
 		it('marks today with aria-current', () => {
 			render(<Calendar />);
 
-			const dateButtons = screen.getAllByRole('button').filter(btn =>
-				btn.getAttribute('aria-current') === 'date'
-			);
+			const dateButtons = screen
+				.getAllByRole('button')
+				.filter((btn) => btn.getAttribute('aria-current') === 'date');
 			expect(dateButtons.length).toBeGreaterThan(0);
 		});
 
 		it('provides descriptive aria-labels for dates', () => {
 			render(<Calendar />);
 
-			const dateButtons = screen.getAllByRole('button').filter(btn =>
-				/^\d+$/.test(btn.textContent || '')
-			);
+			const dateButtons = screen
+				.getAllByRole('button')
+				.filter((btn) => /^\d+$/.test(btn.textContent || ''));
 
 			if (dateButtons.length > 0) {
 				expect(dateButtons[0]).toHaveAttribute('aria-label');

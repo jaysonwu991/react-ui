@@ -89,7 +89,13 @@ type Story = StoryObj<typeof meta>;
 // Interactive wrapper for controlled inputs
 const InteractiveInput = (props: any) => {
 	const [value, setValue] = useState('');
-	return <Input {...props} value={value} onChange={(e) => setValue(e.target.value)} />;
+	return (
+		<Input
+			{...props}
+			value={value}
+			onChange={(e) => setValue(e.target.value)}
+		/>
+	);
 };
 
 // Default - Basic Input
@@ -145,9 +151,20 @@ export const WithError: Story = {
 // Sizes
 export const Sizes: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
+		<div
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				gap: '16px',
+				width: '100%',
+			}}
+		>
 			<Input label="Small Input" inputSize="small" placeholder="Small size" />
-			<Input label="Medium Input" inputSize="medium" placeholder="Medium size (default)" />
+			<Input
+				label="Medium Input"
+				inputSize="medium"
+				placeholder="Medium size (default)"
+			/>
 			<Input label="Large Input" inputSize="large" placeholder="Large size" />
 		</div>
 	),
@@ -171,7 +188,8 @@ export const WithPrefix: Story = {
 	parameters: {
 		docs: {
 			description: {
-				story: 'Input with an icon prefix. Perfect for search boxes, URLs, etc.',
+				story:
+					'Input with an icon prefix. Perfect for search boxes, URLs, etc.',
 			},
 		},
 	},
@@ -188,7 +206,8 @@ export const WithSuffix: Story = {
 	parameters: {
 		docs: {
 			description: {
-				story: 'Input with an icon suffix. Useful for visual indicators, actions, etc.',
+				story:
+					'Input with an icon suffix. Useful for visual indicators, actions, etc.',
 			},
 		},
 	},
@@ -245,11 +264,14 @@ export const FullWidth: Story = {
 
 // Interactive Example
 export const Interactive: Story = {
-	render: () => <InteractiveInput label="Type something" placeholder="Start typing..." />,
+	render: () => (
+		<InteractiveInput label="Type something" placeholder="Start typing..." />
+	),
 	parameters: {
 		docs: {
 			description: {
-				story: 'Interactive input with controlled state. Try typing to see it in action.',
+				story:
+					'Interactive input with controlled state. Try typing to see it in action.',
 			},
 		},
 	},
@@ -257,7 +279,7 @@ export const Interactive: Story = {
 
 // Form Example
 export const FormExample: Story = {
-	render: () => {
+	render: function FormExampleStory() {
 		const [formData, setFormData] = useState({
 			name: '',
 			email: '',
@@ -271,7 +293,8 @@ export const FormExample: Story = {
 
 			if (!formData.name) newErrors.name = 'Name is required';
 			if (!formData.email) newErrors.email = 'Email is required';
-			if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters';
+			if (formData.password.length < 8)
+				newErrors.password = 'Password must be at least 8 characters';
 
 			setErrors(newErrors);
 
@@ -281,7 +304,10 @@ export const FormExample: Story = {
 		};
 
 		return (
-			<form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+			<form
+				onSubmit={handleSubmit}
+				style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+			>
 				<Input
 					label="Full Name"
 					value={formData.name}
@@ -303,7 +329,9 @@ export const FormExample: Story = {
 					label="Password"
 					type="password"
 					value={formData.password}
-					onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+					onChange={(e) =>
+						setFormData({ ...formData, password: e.target.value })
+					}
 					error={errors.password}
 					helperText="Must be at least 8 characters"
 					placeholder="Enter password"
@@ -338,7 +366,14 @@ export const FormExample: Story = {
 // All Input Types
 export const AllTypes: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
+		<div
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				gap: '16px',
+				width: '100%',
+			}}
+		>
 			<Input label="Text" type="text" placeholder="Text input" />
 			<Input label="Email" type="email" placeholder="email@example.com" />
 			<Input label="Password" type="password" placeholder="••••••••" />
@@ -359,7 +394,14 @@ export const AllTypes: Story = {
 // With Icon Examples
 export const WithIcons: Story = {
 	render: () => (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
+		<div
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				gap: '16px',
+				width: '100%',
+			}}
+		>
 			<Input
 				label="Search"
 				placeholder="Search anything..."

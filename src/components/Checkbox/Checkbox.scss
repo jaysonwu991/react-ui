@@ -1,0 +1,107 @@
+@use '../../styles/utilities' as *;
+
+.checkbox {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 4px;
+	font-family: inherit;
+
+	&__control {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		cursor: pointer;
+	}
+
+	&__input {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	&__box {
+		position: relative;
+		display: inline-flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 18px;
+		height: 18px;
+		background: var(--rui-surface, #{$gray-50});
+		border: 1px solid var(--rui-border, #{$gray-300});
+		border-radius: var(--rui-radius, #{$radius-sm});
+
+		@include transition-fast;
+	}
+
+	&__label {
+		font-size: 14px;
+		line-height: 1.4;
+		color: var(--rui-fg, #{$gray-800});
+	}
+
+	&__error {
+		font-size: 13px;
+		line-height: 1.4;
+		color: var(--rui-danger, #{$danger});
+	}
+
+	&__input:focus-visible + &__box {
+		@include focus-ring;
+	}
+
+	&__input:checked + &__box {
+		background: var(--rui-primary, #{$primary});
+		border-color: var(--rui-primary, #{$primary});
+
+		&::after {
+			content: '';
+			width: 4px;
+			height: 8px;
+			border: solid #fff;
+			border-width: 0 2px 2px 0;
+			transform: rotate(45deg) translate(-1px, -1px);
+		}
+	}
+
+	&__input:indeterminate + &__box {
+		background: var(--rui-primary, #{$primary});
+		border-color: var(--rui-primary, #{$primary});
+
+		&::after {
+			content: '';
+			width: 10px;
+			height: 2px;
+			background: #fff;
+		}
+	}
+
+	&__input:disabled + &__box {
+		background: var(--rui-bg, #{$gray-100});
+		border-color: var(--rui-border, #{$gray-300});
+	}
+
+	&__input:disabled ~ &__label {
+		color: var(--rui-muted, #{$gray-400});
+	}
+
+	&--disabled &__control {
+		cursor: not-allowed;
+	}
+
+	&--error &__box {
+		border-color: var(--rui-danger, #{$danger});
+	}
+}
+
+@include reduced-motion {
+	.checkbox__box {
+		transition: none;
+	}
+}

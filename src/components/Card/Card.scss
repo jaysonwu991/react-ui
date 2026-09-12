@@ -1,0 +1,130 @@
+@use '../../styles/utilities' as *;
+
+// Card Component Styles
+.card {
+	display: flex;
+	flex-direction: column;
+	background: var(--rui-surface, #{$gray-50});
+	color: var(--rui-fg, #{$gray-900});
+	border: 1px solid transparent;
+	border-radius: var(--rui-radius, #{$radius-lg});
+
+	@include transition-standard;
+
+	&--elevated {
+		box-shadow:
+			0 1px 3px rgb(0 0 0 / 10%),
+			0 1px 2px rgb(0 0 0 / 6%);
+	}
+
+	&--outlined {
+		border-color: var(--rui-border, #{$gray-200});
+	}
+
+	&--filled {
+		background: var(--rui-bg, #{$gray-100});
+	}
+
+	&--none {
+		padding: 0;
+	}
+
+	&--small {
+		padding: 8px;
+	}
+
+	&--medium {
+		padding: 16px;
+	}
+
+	&--large {
+		padding: 24px;
+	}
+
+	&--interactive {
+		cursor: pointer;
+
+		&:hover {
+			box-shadow: 0 4px 12px rgb(0 0 0 / 12%);
+			transform: translateY(-2px);
+		}
+
+		&:focus-visible {
+			@include focus-ring;
+		}
+
+		&:active {
+			transform: translateY(0);
+		}
+	}
+}
+
+.card__header {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin-bottom: 12px;
+}
+
+.card__title {
+	margin: 0;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.3;
+	color: var(--rui-fg, #{$gray-900});
+}
+
+.card__description {
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--rui-muted, #{$gray-500});
+}
+
+.card__content {
+	flex: 1 1 auto;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--rui-fg, #{$gray-700});
+}
+
+.card__footer {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 12px;
+}
+
+// Touch device optimizations
+@include touch {
+	.card--interactive {
+		&:hover {
+			transform: none;
+		}
+
+		&:active {
+			transform: scale(0.99);
+		}
+	}
+}
+
+// High contrast mode support
+@include high-contrast {
+	.card {
+		border-color: currentcolor;
+	}
+}
+
+// Reduced motion support
+@include reduced-motion {
+	.card {
+		transition: none;
+
+		&--interactive {
+			&:hover,
+			&:active {
+				transform: none;
+			}
+		}
+	}
+}

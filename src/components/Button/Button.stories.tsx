@@ -76,7 +76,8 @@ export const Primary: Story = {
 	parameters: {
 		docs: {
 			description: {
-				story: 'The default primary button style. Used for main call-to-action buttons.',
+				story:
+					'The default primary button style. Used for main call-to-action buttons.',
 			},
 		},
 	},
@@ -121,7 +122,14 @@ export const Sizes: Story = {
 		onClick: fn(),
 	},
 	render: () => (
-		<div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
+		<div
+			style={{
+				display: 'flex',
+				gap: '12px',
+				alignItems: 'center',
+				flexWrap: 'wrap',
+			}}
+		>
 			<Button size="small" onClick={fn()}>
 				Small
 			</Button>
@@ -186,7 +194,8 @@ export const FullWidth: Story = {
 	parameters: {
 		docs: {
 			description: {
-				story: 'Button that stretches to fill the available width. Useful for mobile layouts.',
+				story:
+					'Button that stretches to fill the available width. Useful for mobile layouts.',
 			},
 		},
 	},
@@ -220,7 +229,8 @@ export const WithIcons: Story = {
 	parameters: {
 		docs: {
 			description: {
-				story: 'Buttons can contain icons or emojis alongside text. Use gap in children for spacing.',
+				story:
+					'Buttons can contain icons or emojis alongside text. Use gap in children for spacing.',
 			},
 		},
 	},
@@ -291,7 +301,8 @@ export const AllVariantsAndStates: Story = {
 	parameters: {
 		docs: {
 			description: {
-				story: 'Overview of all button variants in different states: normal, loading, and disabled.',
+				story:
+					'Overview of all button variants in different states: normal, loading, and disabled.',
 			},
 		},
 	},
