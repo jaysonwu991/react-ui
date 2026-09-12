@@ -354,8 +354,8 @@ Current build output (`pnpm build`):
 
 | File              | Raw     | Gzipped |
 | ----------------- | ------- | ------- |
-| `index.js` (ESM)  | 35.2 kB | 10.5 kB |
-| `index.cjs` (CJS) | 31.4 kB | 10.2 kB |
+| `index.js` (ESM)  | 35.5 kB | 10.6 kB |
+| `index.cjs` (CJS) | 31.8 kB | 10.3 kB |
 | `react-ui.css`    | 52.4 kB | 18.1 kB |
 
 The icon SVG symbols are emitted as a separate lazy-loaded chunk; the icon font CSS is included in the main stylesheet.

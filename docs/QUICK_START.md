@@ -359,7 +359,7 @@ rebuild:
 }
 ```
 
-Also available: `--rui-success`, `--rui-warning`, and `--rui-danger`.
+Also available: `--rui-success`, `--rui-warning`, `--rui-danger`, and `--rui-info`.
 
 ## TypeScript
 

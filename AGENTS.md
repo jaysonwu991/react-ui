@@ -38,8 +38,9 @@ Single-package React component library (`@jayson991/react-ui`). No monorepo, no 
 - Shared SCSS variables, breakpoints, and mixins live in `src/styles/_utilities.scss`; component SCSS imports it via `@use '../../styles/utilities' as *` (namespaced members are flattened with `as *`). Class names follow BEM. Semantic color/radius tokens and CSS custom properties (`--rui-primary`, `--rui-success`, `--rui-radius`, `--rui-bg`, …) with Sass fallbacks are defined there; `rui-theme-dark` sets the dark surface values.
 - Icon fonts/SVG live in `src/assets/icons/` (`iconfont.css`/`.js`), lazy-loaded through `src/assets/icons/loader.ts` (`loadIconFont`, `loadIconSvg`, `loadAllIcons`). `.storybook/preview.ts` imports them manually.
 - Storybook picks up `src/**/*.stories.tsx`; `src/stories/Introduction.stories.tsx` is a live full-library overview. Autodocs are enabled globally via `tags: ['autodocs']` in `.storybook/preview.ts` and require `@storybook/addon-docs` (Storybook 10 has no `addon-essentials`).
+- The global `layout: 'centered'` makes `#storybook-root` shrink-to-fit, so full-width components (e.g. `Progress`) collapse unless their story sets `parameters.layout = 'padded'`. `.storybook/main.ts` raises `build.chunkSizeWarningLimit` to 1200 kB because Storybook's own iframe/docs bundles exceed Vite's 500 kB default.
 - Long-form docs live in `docs/` (`BUNDLE_OPTIMIZATION.md`, `PROJECT_SUMMARY.md`, `QUICK_START.md`); root holds `README.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `LICENSE`.
-- Tests are colocated, use Vitest globals + Testing Library + jsdom (`vitest.setup.ts`). 473 tests across 22 files; coverage thresholds are 70% in `vite.config.mts`; `include` is pinned to `src/**/*.test.{ts,tsx}` so emitted `lib/` files are never collected. `pnpm lint` passes clean.
+- Tests are colocated, use Vitest globals + Testing Library + jsdom (`vitest.setup.ts`). 474 tests across 22 files; coverage thresholds are 70% in `vite.config.mts`; `include` is pinned to `src/**/*.test.{ts,tsx}` so emitted `lib/` files are never collected. `pnpm lint` passes clean.
 
 ## Build / publish quirk
 

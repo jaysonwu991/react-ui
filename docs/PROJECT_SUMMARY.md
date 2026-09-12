@@ -9,9 +9,9 @@
 - **Version**: 1.0.0
 - **Components**: 22
 - **Source**: ~3,300 lines of TS/TSX and ~3,450 lines of SCSS
-- **Tests**: 473 tests across 22 files
+- **Tests**: 474 tests across 22 files
 - **Coverage threshold**: 70% (branches, functions, lines, statements)
-- **Bundle**: 35.2 kB ESM (10.5 kB gzipped) + 52.4 kB CSS (18.1 kB gzipped)
+- **Bundle**: 35.5 kB ESM (10.6 kB gzipped) + 52.4 kB CSS (18.1 kB gzipped)
 
 ## Project Structure
 
@@ -98,8 +98,8 @@ Breakpoints: mobile `≤ 480px`, tablet `481–768px`, desktop `≥ 1024px`. Inc
 
 | File              | Raw     | Gzipped |
 | ----------------- | ------- | ------- |
-| `index.js` (ESM)  | 35.2 kB | 10.5 kB |
-| `index.cjs` (CJS) | 31.4 kB | 10.2 kB |
+| `index.js` (ESM)  | 35.5 kB | 10.6 kB |
+| `index.cjs` (CJS) | 31.8 kB | 10.3 kB |
 | `react-ui.css`    | 52.4 kB | 18.1 kB |
 | `iconfont-*.js`   | 18.1 kB | 7.2 kB  |
 
@@ -124,7 +124,7 @@ The build also emits `lib/index.d.ts` (rolled up) plus `lib/components/**/*.d.ts
 | Icon      | 61      |
 | Input     | 39      |
 | Label     | 14      |
-| Modal     | 19      |
+| Modal     | 20      |
 | Progress  | 23      |
 | Radio     | 16      |
 | Select    | 19      |
@@ -135,7 +135,7 @@ The build also emits `lib/index.d.ts` (rolled up) plus `lib/components/**/*.d.ts
 | Tabs      | 14      |
 | Textarea  | 28      |
 | Tooltip   | 8       |
-| **Total** | **473** |
+| **Total** | **474** |
 
 The project uses TypeScript strict mode, has no lint errors, and no type errors.
 

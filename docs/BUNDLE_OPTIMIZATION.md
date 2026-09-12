@@ -8,8 +8,8 @@ From `pnpm build`:
 
 | File              | Raw      | Gzipped | Notes                       |
 | ----------------- | -------- | ------- | --------------------------- |
-| `index.js` (ESM)  | 35.2 kB  | 10.5 kB | Main entry                  |
-| `index.cjs` (CJS) | 31.4 kB  | 10.2 kB | Main entry                  |
+| `index.js` (ESM)  | 35.5 kB  | 10.6 kB | Main entry                  |
+| `index.cjs` (CJS) | 31.8 kB  | 10.3 kB | Main entry                  |
 | `react-ui.css`    | 52.4 kB  | 18.1 kB | All component styles        |
 | `iconfont-*.js`   | ~18.1 kB | ~7.2 kB | Lazy SVG symbol chunk       |
 | `index.d.ts`      | 225 B    | —       | Rolled-up type declarations |
