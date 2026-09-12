@@ -1,0 +1,100 @@
+@use '../../styles/utilities' as *;
+
+// Progress Component Styles
+.progress {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+
+	&__track {
+		position: relative;
+		flex: 1 1 auto;
+		overflow: hidden;
+		background-color: var(--rui-border, #{$gray-200});
+		border-radius: var(--rui-radius, #{$radius-full});
+	}
+
+	&__bar {
+		height: 100%;
+		background-color: var(--rui-primary, #{$primary});
+		border-radius: inherit;
+
+		@include transition-standard;
+	}
+
+	&__label {
+		flex-shrink: 0;
+		min-width: 40px;
+		font-size: 14px;
+		font-variant-numeric: tabular-nums;
+		color: var(--rui-muted, #{$gray-600});
+		text-align: right;
+	}
+
+	&--small &__track {
+		height: 4px;
+	}
+
+	&--medium &__track {
+		height: 8px;
+	}
+
+	&--large &__track {
+		height: 12px;
+	}
+
+	&--success &__bar {
+		background-color: var(--rui-success, #{$success});
+	}
+
+	&--warning &__bar {
+		background-color: var(--rui-warning, #{$warning});
+	}
+
+	&--danger &__bar {
+		background-color: var(--rui-danger, #{$danger});
+	}
+
+	&--indeterminate &__bar {
+		width: 40%;
+		animation: progress-indeterminate 1.4s ease-in-out infinite;
+	}
+}
+
+@keyframes progress-indeterminate {
+	0% {
+		transform: translateX(-100%);
+	}
+
+	100% {
+		transform: translateX(300%);
+	}
+}
+
+// Responsive Design
+@include mobile {
+	.progress__label {
+		min-width: 32px;
+		font-size: 13px;
+	}
+}
+
+// High contrast mode support
+@include high-contrast {
+	.progress__track {
+		border: 1px solid currentcolor;
+	}
+}
+
+// Reduced motion support
+@include reduced-motion {
+	.progress__bar {
+		transition: none;
+	}
+
+	.progress--indeterminate .progress__bar {
+		width: 100%;
+		animation: none;
+	}
+}

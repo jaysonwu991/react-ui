@@ -1,0 +1,89 @@
+@use '../../styles/utilities' as *;
+
+.avatar {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	color: #fff;
+	font-weight: 600;
+	background: var(--rui-primary, #{$primary});
+	user-select: none;
+
+	&--circle {
+		border-radius: var(--rui-radius, #{$radius-full});
+	}
+
+	&--square {
+		border-radius: var(--rui-radius, #{$radius-md});
+	}
+
+	&--small {
+		width: 32px;
+		height: 32px;
+		font-size: 12px;
+	}
+
+	&--medium {
+		width: 40px;
+		height: 40px;
+		font-size: 14px;
+	}
+
+	&--large {
+		width: 56px;
+		height: 56px;
+		font-size: 18px;
+	}
+
+	&--xlarge {
+		width: 72px;
+		height: 72px;
+		font-size: 24px;
+	}
+
+	&__image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: inherit;
+	}
+
+	&__fallback {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		border-radius: inherit;
+	}
+
+	&__status {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: 25%;
+		height: 25%;
+		min-width: 8px;
+		min-height: 8px;
+		border: 2px solid var(--rui-bg, #fff);
+		border-radius: var(--rui-radius, #{$radius-full});
+
+		&--online {
+			background: var(--rui-success, #{$success});
+		}
+
+		&--offline {
+			background: var(--rui-muted, #{$gray-400});
+		}
+
+		&--busy {
+			background: var(--rui-danger, #{$danger});
+		}
+
+		&--away {
+			background: var(--rui-warning, #{$warning});
+		}
+	}
+}

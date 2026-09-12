@@ -2,16 +2,16 @@
 
 ## Overview
 
-**@jayson991/react-ui** is a modern, lightweight React UI component library built with TypeScript and Sass. It provides five accessible, responsive components: **Modal, Button, Input, Icon, and Calendar**.
+**@jayson991/react-ui** is a modern, lightweight React UI component library built with TypeScript and Sass. It ships 22 accessible, responsive components — form controls (`Input`, `Textarea`, `Select`, `Checkbox`, `Radio`, `Switch`), overlays (`Modal`, `Tooltip`), feedback (`Alert`, `Progress`, `Skeleton`, `Spinner`), navigation (`Tabs`, `Accordion`), and data display (`Card`, `Badge`, `Avatar`, `Calendar`, `Icon`, `Separator`, `Label`, `Button`).
 
 ## Statistics
 
 - **Version**: 1.0.0
-- **Components**: 5
-- **Source**: ~1,400 lines of TS/TSX and ~1,850 lines of SCSS
-- **Tests**: 190 tests across 5 files
+- **Components**: 22
+- **Source**: ~3,300 lines of TS/TSX and ~3,450 lines of SCSS
+- **Tests**: 473 tests across 22 files
 - **Coverage threshold**: 70% (branches, functions, lines, statements)
-- **Bundle**: 19.7 kB ESM (6.8 kB gzipped) + 37.1 kB CSS (15.5 kB gzipped)
+- **Bundle**: 35.2 kB ESM (10.5 kB gzipped) + 52.4 kB CSS (18.1 kB gzipped)
 
 ## Project Structure
 
@@ -19,14 +19,18 @@
 @jayson991/react-ui/
 ├── src/
 │   ├── components/
-│   │   ├── Button/   Input/   Icon/   Modal/   Calendar/
+│   │   ├── Accordion/ Alert/ Avatar/ Badge/ Button/ Calendar/ Card/
+│   │   ├── Checkbox/ Icon/ Input/ Label/ Modal/ Progress/ Radio/
+│   │   ├── Select/ Separator/ Skeleton/ Spinner/ Switch/ Tabs/
+│   │   ├── Textarea/ Tooltip/
 │   │   │   ├── <Name>.tsx          # Component
 │   │   │   ├── <Name>.scss         # Styles
 │   │   │   ├── <Name>.test.tsx     # Tests
 │   │   │   ├── <Name>.stories.tsx  # Storybook
 │   │   │   └── index.ts            # Exports
 │   │   └── index.ts                # Component barrel
-│   ├── styles/_utilities.scss      # Shared variables, breakpoints, mixins
+│   ├── utils/cx.ts                 # Class-name helper
+│   ├── styles/_utilities.scss      # Shared variables, tokens, breakpoints, mixins
 │   ├── assets/icons/               # Icon fonts, SVG symbols, loader
 │   └── index.ts                    # Library entry
 ├── docs/                           # Long-form documentation
@@ -70,6 +74,22 @@ Font (`type="font"`) and SVG (`type="svg"`) modes; size, color, rotation, flips;
 
 Modes `single`/`multiple`/`range`; month and year views; min/max dates; disabled and highlighted dates; week numbers; configurable first day of week; today/clear buttons; keyboard navigation; locale support; custom date rendering and styling.
 
+### Card, Badge, Avatar, Separator
+
+`Card` is a compound container (`CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`) with `elevated`/`outlined`/`filled` variants. `Badge` supports seven variants, three sizes, and a dot indicator. `Avatar` renders an image with initials fallback, four sizes, two shapes, and a presence status. `Separator` draws horizontal or vertical dividers with an optional label.
+
+### Form controls
+
+`Label`, `Textarea`, `Checkbox`, `Switch`, `Select`, and `Radio`/`RadioGroup` cover labels, multi-line input, binary and indeterminate selection, toggles, native select with error states, and single-choice groups. All support error/helper text, disabled states, and accessible labelling.
+
+### Feedback
+
+`Alert` (info/success/warning/danger, dismissible), `Progress` (determinate and indeterminate, four variants), `Skeleton` (text/circular/rectangular placeholders), and `Spinner` (three sizes) cover loading and status feedback.
+
+### Navigation
+
+`Tabs` (`TabsList`, `TabsTrigger`, `TabsContent`) and `Accordion` (`AccordionItem`, `AccordionTrigger`, `AccordionContent`) implement roving focus, arrow/Home/End keyboard navigation, and full ARIA wiring. `Tooltip` shows contextual hints on hover and focus, dismissible with Escape.
+
 ## Responsive Design
 
 Breakpoints: mobile `≤ 480px`, tablet `481–768px`, desktop `≥ 1024px`. Includes 44px touch targets, high-contrast and reduced-motion support, and 16px mobile input font to prevent iOS zoom.
@@ -78,9 +98,9 @@ Breakpoints: mobile `≤ 480px`, tablet `481–768px`, desktop `≥ 1024px`. Inc
 
 | File              | Raw     | Gzipped |
 | ----------------- | ------- | ------- |
-| `index.js` (ESM)  | 19.6 kB | 6.8 kB  |
-| `index.cjs` (CJS) | 17.9 kB | 6.5 kB  |
-| `react-ui.css`    | 32.0 kB | 14.5 kB |
+| `index.js` (ESM)  | 35.2 kB | 10.5 kB |
+| `index.cjs` (CJS) | 31.4 kB | 10.2 kB |
+| `react-ui.css`    | 52.4 kB | 18.1 kB |
 | `iconfont-*.js`   | 18.1 kB | 7.2 kB  |
 
 The build also emits `lib/index.d.ts` (rolled up) plus `lib/components/**/*.d.ts` type declarations.
@@ -93,12 +113,29 @@ The build also emits `lib/index.d.ts` (rolled up) plus `lib/components/**/*.d.ts
 
 | Component | Tests   |
 | --------- | ------- |
+| Accordion | 13      |
+| Alert     | 16      |
+| Avatar    | 15      |
+| Badge     | 16      |
 | Button    | 26      |
-| Input     | 39      |
-| Modal     | 19      |
-| Icon      | 61      |
 | Calendar  | 45      |
-| **Total** | **190** |
+| Card      | 21      |
+| Checkbox  | 22      |
+| Icon      | 61      |
+| Input     | 39      |
+| Label     | 14      |
+| Modal     | 19      |
+| Progress  | 23      |
+| Radio     | 16      |
+| Select    | 19      |
+| Separator | 9       |
+| Skeleton  | 14      |
+| Spinner   | 14      |
+| Switch    | 21      |
+| Tabs      | 14      |
+| Textarea  | 28      |
+| Tooltip   | 8       |
+| **Total** | **473** |
 
 The project uses TypeScript strict mode, has no lint errors, and no type errors.
 
@@ -141,4 +178,4 @@ Modern browsers with ES2015+ support: Chrome, Firefox, Safari, Edge, and mobile 
 
 ## Future Enhancements
 
-Additional components (Select, Checkbox, Tooltip, …), a theme customization system, RTL and built-in dark mode, and form validation utilities.
+Additional components (DataTable, Toast, Command palette, …), a built-in dark-mode toggle, RTL support, and form validation utilities.

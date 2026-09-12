@@ -1,0 +1,71 @@
+@use '../../styles/utilities' as *;
+
+.accordion {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	border: 1px solid var(--rui-border, #{$gray-200});
+	border-radius: var(--rui-radius, #{$radius-md});
+	overflow: hidden;
+
+	&__item {
+		& + & {
+			border-top: 1px solid var(--rui-border, #{$gray-200});
+		}
+	}
+
+	&__trigger {
+		@include button-reset;
+
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		width: 100%;
+		padding: 14px 16px;
+		color: var(--rui-fg, #{$gray-900});
+		font: inherit;
+		font-weight: 500;
+		text-align: left;
+		background: var(--rui-surface, #{$gray-50});
+
+		@include transition-fast;
+
+		&:hover {
+			background: var(--rui-bg, #{$gray-100});
+		}
+
+		&:focus-visible {
+			@include focus-ring;
+		}
+	}
+
+	&__trigger-text {
+		flex: 1;
+	}
+
+	&__chevron {
+		width: 8px;
+		height: 8px;
+		border-right: 2px solid currentcolor;
+		border-bottom: 2px solid currentcolor;
+		transform: rotate(45deg);
+		transition: transform 0.2s ease;
+	}
+
+	&__item[data-state='open'] &__chevron {
+		transform: rotate(-135deg);
+	}
+
+	&__content {
+		padding: 0 16px 14px;
+		color: var(--rui-muted, #{$gray-600});
+		background: var(--rui-bg, #{$gray-50});
+	}
+
+	@include reduced-motion {
+		&__chevron {
+			transition: none;
+		}
+	}
+}

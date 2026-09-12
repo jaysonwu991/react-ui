@@ -19,6 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `src/vite-env.d.ts` for SCSS module declarations under TypeScript 7
 - Storybook **Introduction** story with a live component overview
 - `loadAllIcons` and `DayOfWeek` public exports
+- 17 new components: `Card` (with `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`), `Badge`, `Alert`, `Separator`, `Avatar`, `Label`, `Textarea`, `Checkbox`, `Switch`, `Select`, `Radio`/`RadioGroup`, `Progress`, `Skeleton`, `Spinner`, `Tabs` (with `TabsList`, `TabsTrigger`, `TabsContent`), `Accordion` (with `AccordionItem`, `AccordionTrigger`, `AccordionContent`), and `Tooltip`
+- `cx` class-name utility and the `ClassValue` type
+- CSS custom-property theming tokens (`--rui-primary`, `--rui-success`, `--rui-warning`, `--rui-danger`, `--rui-info`, `--rui-radius`, `--rui-bg`, `--rui-fg`, `--rui-muted`, `--rui-border`, `--rui-surface`) with Sass fallbacks, plus the `rui-theme-dark` mixin and semantic Sass color/radius tokens
 
 ### Changed
 
@@ -30,6 +33,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved `PROJECT_SUMMARY.md` with current statistics
 - Refreshed `QUICK_START.md` with Calendar examples
 - Named the Storybook `render` functions that use hooks so `react-hooks/rules-of-hooks` passes
+- Restricted Vitest's `include` to `src/**/*.test.{ts,tsx}` so emitted files under `lib/` can never be collected
+- Normalized Storybook titles by dropping the `Components/` prefix from Calendar and Icon
+- Expanded the Storybook **Introduction** story into a full library showcase
 
 ### Fixed
 

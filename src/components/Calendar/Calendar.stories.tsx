@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Calendar, { type DateRange } from './Calendar';
 
 const meta: Meta<typeof Calendar> = {
-	title: 'Components/Calendar',
+	title: 'Calendar',
 	component: Calendar,
 	parameters: {
 		docs: {

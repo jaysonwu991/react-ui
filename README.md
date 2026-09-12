@@ -6,15 +6,16 @@ A modern, responsive, and accessible React UI component library built with TypeS
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-ready-3178c6.svg)](https://www.typescriptlang.org/)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Bundle size](https://img.shields.io/badge/bundle-~7%20kB%20gzip-blueviolet.svg)](#bundle-size)
+[![Bundle size](https://img.shields.io/badge/bundle-~10%20kB%20gzip-blueviolet.svg)](#bundle-size)
 
 ## Features
 
-- **5 components** — Modal, Button, Input, Icon, Calendar
+- **22 components** — forms, overlays, feedback, navigation, and more
 - **Responsive** — optimized for mobile, tablet, and desktop
 - **Accessible** — ARIA attributes, keyboard navigation, focus management
 - **TypeScript** — full type definitions included
-- **Sass + BEM** — clean, overridable styles
+- **Sass + BEM** — clean, overridable styles with CSS-variable theming
+- **Zero runtime dependencies** — only React as a peer dependency
 - **Dual format** — ESM and CommonJS builds, tree-shakeable
 - **Icons** — Iconfont.cn / Icomoon.io icon fonts and SVG symbols
 - **Playground** — interactive Storybook with a live overview
@@ -88,6 +89,34 @@ pnpm storybook
 The **Introduction** story is a live overview of the whole library.
 
 ## Components
+
+| Component              | Description                               |
+| ---------------------- | ----------------------------------------- |
+| `Accordion`            | Vertically stacked, collapsible sections  |
+| `Alert`                | Contextual feedback messages              |
+| `Avatar`               | Image or initials with presence status    |
+| `Badge`                | Compact status or count labels            |
+| `Button`               | Actions and triggers                      |
+| `Calendar`             | Date selection (single, multiple, range)  |
+| `Card`                 | Content container with header and footer  |
+| `Checkbox`             | Binary and indeterminate selection        |
+| `Icon`                 | Iconfont and SVG icons                    |
+| `Input`                | Single-line text field                    |
+| `Label`                | Accessible form label                     |
+| `Modal`                | Dialog overlay                            |
+| `Progress`             | Determinate and indeterminate progress    |
+| `Radio` / `RadioGroup` | Single choice from a set                  |
+| `Select`               | Native select with label and error states |
+| `Separator`            | Visual divider                            |
+| `Skeleton`             | Loading placeholders                      |
+| `Spinner`              | Loading indicator                         |
+| `Switch`               | On/off toggle                             |
+| `Tabs`                 | Layered content sections                  |
+| `Textarea`             | Multi-line text field                     |
+| `Tooltip`              | Contextual hint on hover and focus        |
+
+The original five components are documented in full below. For every prop of the
+rest, open Storybook (`pnpm storybook`) — each component ships an autodocs page.
 
 ### Modal
 
@@ -284,6 +313,29 @@ Components use BEM class names (`.btn`, `.btn--primary`, `.input__label`, `.moda
 
 The compiled stylesheet is also available as `@jayson991/react-ui/styles` if you prefer to load CSS yourself.
 
+### Theming
+
+Colors, radii, and surfaces resolve through CSS custom properties with Sass
+fallbacks, so you can retheme the whole library without rebuilding:
+
+```css
+:root {
+	--rui-primary: #7c3aed;
+	--rui-primary-hover: #6d28d9;
+	--rui-radius: 10px;
+	--rui-bg: #ffffff;
+	--rui-fg: #111827;
+	--rui-muted: #6b7280;
+	--rui-border: #e5e7eb;
+	--rui-surface: #f9fafb;
+}
+```
+
+Available tokens: `--rui-primary`, `--rui-primary-hover`, `--rui-success`,
+`--rui-warning`, `--rui-danger`, `--rui-info`, `--rui-radius`, `--rui-bg`,
+`--rui-fg`, `--rui-muted`, `--rui-border`, `--rui-surface`. The
+`rui-theme-dark` Sass mixin sets the dark values for a scope.
+
 ## Responsive Design
 
 Breakpoints: mobile `≤ 480px`, tablet `481–768px`, desktop `≥ 1024px`.
@@ -302,9 +354,9 @@ Current build output (`pnpm build`):
 
 | File              | Raw     | Gzipped |
 | ----------------- | ------- | ------- |
-| `index.js` (ESM)  | 19.6 kB | 6.8 kB  |
-| `index.cjs` (CJS) | 17.9 kB | 6.5 kB  |
-| `react-ui.css`    | 32.0 kB | 14.5 kB |
+| `index.js` (ESM)  | 35.2 kB | 10.5 kB |
+| `index.cjs` (CJS) | 31.4 kB | 10.2 kB |
+| `react-ui.css`    | 52.4 kB | 18.1 kB |
 
 The icon SVG symbols are emitted as a separate lazy-loaded chunk; the icon font CSS is included in the main stylesheet.
 
@@ -320,7 +372,8 @@ Each component statically imports its own stylesheet, and the package marks `*.s
 
 ## TypeScript
 
-All public types are exported:
+All public types are exported, including every component's props and variant
+unions, plus the `cx` class-name helper and the `ClassValue` type. For example:
 
 ```tsx
 import type {

@@ -25,19 +25,21 @@ Single-package React component library (`@jayson991/react-ui`). No monorepo, no 
 - `vite.config.mts` is intentionally `.mts` (ESM) and uses `import.meta.dirname`; renaming it to `vite.config.ts` or reintroducing `__dirname` re-triggers Vite's `configLoader: 'native'` warning.
 - `src/vite-env.d.ts` (`/// <reference types="vite/client" />`) supplies `*.scss` module declarations. TS 7 otherwise errors `TS2882` on side-effect SCSS imports.
 - `tsconfig.json` `include` also lists `vitest.setup.ts` so jest-dom v7's Vitest matcher augmentation is in the type program.
+- The library targets ES2015 (`lib` is `["ES2015", "DOM", "DOM.Iterable"]`), so `Array.prototype.includes` (ES2016) and `Object.entries`/`Object.values` (ES2017) are type errors (TS2550) and fail `pnpm build`. Use `indexOf(...) !== -1` and `Object.keys` instead.
 - jsdom 30 resolves `em` font sizes to `px` in computed styles; tests asserting unit passthrough check inline `style.fontSize` instead of `toHaveStyle`.
 - Shared SCSS is consumed with `@use ... as *` (not `@import`), so `pnpm build` prints no Dart Sass deprecation warnings. Keep it that way.
 - Lint config is `.oxlintrc.json` — the leading dot is required, or oxlint silently falls back to defaults. It enables the react plugin, sets `env.browser`, and `ignorePatterns` excludes the generated `src/assets/icons/iconfont.js` (oxlint otherwise reports it as a minified file). `Modal.tsx` locally disables `react/set-state-in-effect` around its enter/exit animation effect.
 
 ## Layout
 
-- Public entry `src/index.ts`; barrel `src/components/index.ts`. Each component dir (`Modal`, `Button`, `Input`, `Icon`, `Calendar`) contains `Component.tsx`, `Component.scss`, `Component.test.tsx`, `Component.stories.tsx`, `index.ts`.
+- Public entry `src/index.ts` re-exports the `src/components/index.ts` barrel (22 components) plus `cx` and the icon loaders. Each component dir (`Modal`, `Button`, `Card`, …) contains `Component.tsx`, `Component.scss`, `Component.test.tsx`, `Component.stories.tsx`, `index.ts`. Compound components (`Card`, `Tabs`, `Accordion`, `Radio`) export named subcomponents from the same file.
+- `src/utils/cx.ts` exports the `cx` class-name helper (strings, numbers, falsy values, and `Record<string, boolean>`), used by the newer components. It avoids `Object.entries` (see the ES2015 quirk below).
 - Every `Component.tsx` imports its own `.scss`, so styles load with the component. `package.json` `sideEffects` lists SCSS/CSS.
-- Shared SCSS variables, breakpoints, and mixins live in `src/styles/_utilities.scss`; component SCSS imports it via `@use '../../styles/utilities' as *` (namespaced members are flattened with `as *`). Class names follow BEM.
+- Shared SCSS variables, breakpoints, and mixins live in `src/styles/_utilities.scss`; component SCSS imports it via `@use '../../styles/utilities' as *` (namespaced members are flattened with `as *`). Class names follow BEM. Semantic color/radius tokens and CSS custom properties (`--rui-primary`, `--rui-success`, `--rui-radius`, `--rui-bg`, …) with Sass fallbacks are defined there; `rui-theme-dark` sets the dark surface values.
 - Icon fonts/SVG live in `src/assets/icons/` (`iconfont.css`/`.js`), lazy-loaded through `src/assets/icons/loader.ts` (`loadIconFont`, `loadIconSvg`, `loadAllIcons`). `.storybook/preview.ts` imports them manually.
 - Storybook picks up `src/**/*.stories.tsx`; `src/stories/Introduction.stories.tsx` is a live full-library overview. Autodocs are enabled globally via `tags: ['autodocs']` in `.storybook/preview.ts` and require `@storybook/addon-docs` (Storybook 10 has no `addon-essentials`).
 - Long-form docs live in `docs/` (`BUNDLE_OPTIMIZATION.md`, `PROJECT_SUMMARY.md`, `QUICK_START.md`); root holds `README.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `LICENSE`.
-- Tests are colocated, use Vitest globals + Testing Library + jsdom (`vitest.setup.ts`). Coverage thresholds are 70% in `vite.config.mts`. `pnpm lint` passes clean.
+- Tests are colocated, use Vitest globals + Testing Library + jsdom (`vitest.setup.ts`). 473 tests across 22 files; coverage thresholds are 70% in `vite.config.mts`; `include` is pinned to `src/**/*.test.{ts,tsx}` so emitted `lib/` files are never collected. `pnpm lint` passes clean.
 
 ## Build / publish quirk
 

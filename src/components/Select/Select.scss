@@ -1,0 +1,137 @@
+@use '../../styles/utilities' as *;
+
+// Select Component Styles
+.select-wrapper {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 6px;
+
+	&--full-width {
+		width: 100%;
+	}
+}
+
+.select__label {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--rui-fg, #{$gray-700});
+}
+
+.select__container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.select__field {
+	width: 100%;
+	padding: 10px 40px 10px 12px;
+	font-family: inherit;
+	font-size: 16px;
+	color: var(--rui-fg, #{$gray-800});
+	background-color: var(--rui-surface, #{$gray-50});
+	border: 1px solid var(--rui-border, #{$gray-300});
+	border-radius: var(--rui-radius, #{$radius-md});
+	appearance: none;
+	cursor: pointer;
+
+	@include transition-standard;
+
+	&:hover:not(:disabled) {
+		border-color: $gray-400;
+	}
+
+	&:focus-visible {
+		@include focus-ring;
+	}
+
+	&:disabled {
+		color: var(--rui-muted, #{$gray-400});
+		background-color: $gray-100;
+		cursor: not-allowed;
+	}
+
+	&--error {
+		border-color: $danger;
+
+		&:focus-visible {
+			outline-color: $danger;
+		}
+	}
+}
+
+.select__chevron {
+	position: absolute;
+	right: 14px;
+	width: 0;
+	height: 0;
+	border-top: 6px solid var(--rui-muted, #{$gray-500});
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+	pointer-events: none;
+}
+
+.select__error {
+	font-size: 14px;
+	color: $danger;
+}
+
+.select__helper {
+	font-size: 14px;
+	color: var(--rui-muted, #{$gray-500});
+}
+
+// Responsive Design
+@include mobile {
+	.select__field {
+		min-height: 44px;
+		font-size: 16px; // Prevent zoom on iOS
+	}
+
+	.select__label,
+	.select__error,
+	.select__helper {
+		font-size: 13px;
+	}
+}
+
+@include tablet {
+	.select__field {
+		min-height: 42px;
+	}
+}
+
+// Touch device optimizations
+@include touch {
+	.select__field {
+		min-height: 44px;
+		font-size: 16px;
+
+		&:hover:not(:disabled) {
+			border-color: var(--rui-border, #{$gray-300});
+		}
+	}
+}
+
+// High contrast mode support
+@include high-contrast {
+	.select__field {
+		border-width: 2px;
+
+		&--error {
+			border-color: $danger;
+		}
+	}
+
+	.select__label {
+		font-weight: 600;
+	}
+}
+
+// Reduced motion support
+@include reduced-motion {
+	.select__field {
+		transition: none;
+	}
+}

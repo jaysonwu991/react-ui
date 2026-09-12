@@ -211,6 +211,59 @@ function EventScheduler() {
 }
 ```
 
+## More Components
+
+The library ships 22 components. A quick taste of the newer ones:
+
+```tsx
+import {
+	Alert,
+	Avatar,
+	Badge,
+	Card,
+	CardContent,
+	CardHeader,
+	CardTitle,
+	Progress,
+	Switch,
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from '@jayson991/react-ui';
+
+<Card>
+	<CardHeader>
+		<CardTitle>Profile</CardTitle>
+	</CardHeader>
+	<CardContent>
+		<div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+			<Avatar name="Jane Doe" status="online" />
+			<Badge variant="success" dot>
+				Active
+			</Badge>
+			<Switch label="Notifications" defaultChecked />
+		</div>
+		<Progress value={72} showLabel />
+	</CardContent>
+</Card>
+
+<Alert variant="warning" title="Heads up" dismissible>
+	Your session expires soon.
+</Alert>
+
+<Tabs defaultValue="one">
+	<TabsList>
+		<TabsTrigger value="one">One</TabsTrigger>
+		<TabsTrigger value="two">Two</TabsTrigger>
+	</TabsList>
+	<TabsContent value="one">First panel</TabsContent>
+	<TabsContent value="two">Second panel</TabsContent>
+</Tabs>
+```
+
+Every component also has an autodocs page in Storybook (`pnpm storybook`).
+
 ## Props Quick Reference
 
 ### Modal
@@ -287,6 +340,26 @@ All components accept `className` and `style`:
 
 <Input style={{ borderColor: 'blue' }} label="Custom Input" />
 ```
+
+### Theming
+
+Override the CSS custom properties to retheme the whole library without a
+rebuild:
+
+```css
+:root {
+	--rui-primary: #7c3aed;
+	--rui-primary-hover: #6d28d9;
+	--rui-radius: 10px;
+	--rui-bg: #ffffff;
+	--rui-fg: #111827;
+	--rui-muted: #6b7280;
+	--rui-border: #e5e7eb;
+	--rui-surface: #f9fafb;
+}
+```
+
+Also available: `--rui-success`, `--rui-warning`, and `--rui-danger`.
 
 ## TypeScript
 

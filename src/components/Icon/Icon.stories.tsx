@@ -3,7 +3,7 @@ import { fn } from 'storybook/test';
 import Icon from './Icon';
 
 const meta: Meta<typeof Icon> = {
-	title: 'Components/Icon',
+	title: 'Icon',
 	component: Icon,
 	parameters: {
 		docs: {

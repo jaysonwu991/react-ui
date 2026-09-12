@@ -1,0 +1,42 @@
+@use '../../styles/utilities' as *;
+
+.label {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-family: inherit;
+	font-weight: 500;
+	line-height: 1.4;
+	color: var(--rui-fg, #{$gray-700});
+	cursor: default;
+
+	@include transition-fast;
+
+	&--small {
+		font-size: 12px;
+	}
+
+	&--medium {
+		font-size: 14px;
+	}
+
+	&--large {
+		font-size: 16px;
+	}
+
+	&--disabled {
+		color: var(--rui-muted, #{$gray-400});
+		cursor: not-allowed;
+	}
+
+	&__required {
+		color: var(--rui-danger, #{$danger});
+		line-height: 1;
+	}
+}
+
+@include reduced-motion {
+	.label {
+		transition: none;
+	}
+}

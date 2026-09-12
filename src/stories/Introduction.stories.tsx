@@ -1,7 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
-import { Button, Calendar, Icon, Input, Modal } from '../components';
+import {
+	Alert,
+	Avatar,
+	Badge,
+	Button,
+	Calendar,
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+	Checkbox,
+	Icon,
+	Input,
+	Modal,
+	Progress,
+	Spinner,
+	Switch,
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+	Tooltip,
+} from '../components';
 
 const meta: Meta = {
 	title: 'Introduction',
@@ -50,11 +73,18 @@ const sectionTitle: CSSProperties = {
 	fontWeight: 700,
 };
 
+const row: CSSProperties = {
+	display: 'flex',
+	gap: 12,
+	alignItems: 'center',
+	flexWrap: 'wrap',
+};
+
 const features = [
 	{
 		icon: 'home',
-		title: '5 components',
-		text: 'Modal, Button, Input, Icon, Calendar.',
+		title: '22 components',
+		text: 'Forms, overlays, feedback, navigation and more.',
 	},
 	{
 		icon: 'check',
@@ -64,12 +94,12 @@ const features = [
 	{
 		icon: 'settings',
 		title: 'Themed',
-		text: 'Sass + BEM, dark mode and reduced motion.',
+		text: 'Sass + BEM with runtime CSS variables.',
 	},
 	{
 		icon: 'download',
-		title: 'Tiny',
-		text: 'ESM + CJS, tree-shakeable, ~7 kB gzipped.',
+		title: 'Typed & tiny',
+		text: 'TypeScript, tree-shakeable, zero runtime deps.',
 	},
 ] as const;
 
@@ -77,6 +107,8 @@ function Showcase() {
 	const [showModal, setShowModal] = useState(false);
 	const [name, setName] = useState('');
 	const [date, setDate] = useState<Date | null>(null);
+	const [notifications, setNotifications] = useState(true);
+	const [progress, setProgress] = useState(40);
 
 	return (
 		<div style={page}>
@@ -108,27 +140,125 @@ function Showcase() {
 			</div>
 
 			<h2 style={sectionTitle}>Live playground</h2>
-			<div style={{ ...card, display: 'grid', gap: 20, maxWidth: 420 }}>
-				<Input
-					label="Your name"
-					placeholder="Enter your name"
-					value={name}
-					onChange={(event) => setName(event.target.value)}
-				/>
-				<Calendar
-					mode="single"
-					value={date}
-					onChange={(next) => setDate(next as Date)}
-				/>
-				<div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-					<Button onClick={() => setShowModal(true)}>
-						<Icon name="user" size={16} />
-						Open modal
-					</Button>
-					<Button variant="ghost" loading>
-						Loading
-					</Button>
-				</div>
+			<div
+				style={{
+					display: 'grid',
+					gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+					gap: 20,
+				}}
+			>
+				<Card>
+					<CardHeader>
+						<CardTitle>Form controls</CardTitle>
+						<CardDescription>
+							Inputs, toggles and progress in one place.
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<div style={{ display: 'grid', gap: 20 }}>
+							<Input
+								label="Your name"
+								placeholder="Enter your name"
+								value={name}
+								onChange={(event) => setName(event.target.value)}
+							/>
+							<div style={{ ...row, justifyContent: 'space-between' }}>
+								<Switch
+									checked={notifications}
+									onCheckedChange={setNotifications}
+									label="Notifications"
+								/>
+								<Badge variant={notifications ? 'success' : 'secondary'} dot>
+									{notifications ? 'On' : 'Off'}
+								</Badge>
+							</div>
+							<Checkbox label="Remember me" defaultChecked />
+							<Progress value={progress} showLabel label="Upload" />
+							<div style={row}>
+								<Button
+									size="small"
+									variant="secondary"
+									onClick={() =>
+										setProgress((value) => Math.max(0, value - 20))
+									}
+								>
+									-
+								</Button>
+								<Button
+									size="small"
+									onClick={() =>
+										setProgress((value) => Math.min(100, value + 20))
+									}
+								>
+									+
+								</Button>
+								<Spinner size="small" />
+							</div>
+						</div>
+					</CardContent>
+				</Card>
+
+				<Card>
+					<CardHeader>
+						<CardTitle>Feedback &amp; navigation</CardTitle>
+						<CardDescription>
+							Alerts, avatars, tabs and tooltips.
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<div style={{ display: 'grid', gap: 20 }}>
+							<Alert variant="success" title="Saved">
+								Your changes were stored successfully.
+							</Alert>
+							<div style={row}>
+								<Avatar name="Jane Doe" status="online" />
+								<Avatar name="Sam Lee" shape="square" size="large" />
+								<Tooltip content="Open the docs">
+									<Badge variant="outline">Hover me</Badge>
+								</Tooltip>
+							</div>
+							<Tabs defaultValue="preview">
+								<TabsList>
+									<TabsTrigger value="preview">Preview</TabsTrigger>
+									<TabsTrigger value="code">Code</TabsTrigger>
+								</TabsList>
+								<TabsContent value="preview">
+									<p style={{ margin: 0, color: '#6b7280', fontSize: 14 }}>
+										Live preview of the component.
+									</p>
+								</TabsContent>
+								<TabsContent value="code">
+									<p style={{ margin: 0, color: '#6b7280', fontSize: 14 }}>
+										Copy-ready source code.
+									</p>
+								</TabsContent>
+							</Tabs>
+						</div>
+					</CardContent>
+				</Card>
+
+				<Card>
+					<CardHeader>
+						<CardTitle>Calendar</CardTitle>
+						<CardDescription>Single, multiple and range modes.</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<Calendar
+							mode="single"
+							value={date}
+							onChange={(next) => setDate(next as Date)}
+						/>
+						<div style={{ ...row, marginTop: 16 }}>
+							<Button onClick={() => setShowModal(true)}>
+								<Icon name="user" size={16} />
+								Open modal
+							</Button>
+							<Button variant="ghost" loading>
+								Loading
+							</Button>
+						</div>
+					</CardContent>
+				</Card>
 			</div>
 
 			<Modal

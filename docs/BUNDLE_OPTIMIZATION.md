@@ -8,11 +8,11 @@ From `pnpm build`:
 
 | File              | Raw      | Gzipped | Notes                       |
 | ----------------- | -------- | ------- | --------------------------- |
-| `index.js` (ESM)  | 19.6 kB  | 6.8 kB  | Main entry                  |
-| `index.cjs` (CJS) | 17.9 kB  | 6.5 kB  | Main entry                  |
-| `react-ui.css`    | 32.0 kB  | 14.5 kB | All component styles        |
+| `index.js` (ESM)  | 35.2 kB  | 10.5 kB | Main entry                  |
+| `index.cjs` (CJS) | 31.4 kB  | 10.2 kB | Main entry                  |
+| `react-ui.css`    | 52.4 kB  | 18.1 kB | All component styles        |
 | `iconfont-*.js`   | ~18.1 kB | ~7.2 kB | Lazy SVG symbol chunk       |
-| `index.d.ts`      | 370 B    | —       | Rolled-up type declarations |
+| `index.d.ts`      | 225 B    | —       | Rolled-up type declarations |
 
 React and React DOM are external and are never bundled.
 
