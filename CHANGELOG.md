@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -8,51 +8,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Calendar component with full date selection functionality
-- Support for single, multiple, and range date selection modes
-- Calendar keyboard navigation and accessibility features
-- Comprehensive Calendar component tests
-- Calendar component Storybook documentation
+
+- Calendar component with single, multiple, and range selection modes
+- Calendar keyboard navigation, month/year views, min/max constraints, disabled/highlighted dates, week numbers, locale support, and custom date rendering
+- Calendar Storybook stories and test suite
 - Tree-shakeable Calendar export
-- Style loader utilities for dynamic style injection
 - Global SCSS utilities and mixins in `src/styles/`
 - Icon fonts and assets in `src/assets/icons/`
-
-#### Calendar Component Features
-- Three selection modes: single date, multiple dates, and date range
-- Month and year views for easy navigation
-- Min/max date constraints
-- Disabled and highlighted dates support (array or function)
-- Customizable first day of week (Sunday-Saturday)
-- Week numbers display option
-- Today and clear buttons
-- Full keyboard navigation (arrow keys, Enter, Escape)
-- Locale support for date formatting
-- Adjacent month dates display
-- Custom date rendering and styling
-- Touch device optimization
-- ARIA roles and screen reader support
-
-#### Architecture Improvements
-- Component-level style loaders (`styles.ts` files)
-- Shared SCSS utilities and mixins for consistency
-- Improved tree-shaking with per-component style imports
-- Icon font loader with lazy-loading support
+- **oxfmt** formatter with `.oxfmtrc.json` and `pnpm format` / `pnpm format:check` scripts
+- `src/vite-env.d.ts` for SCSS module declarations under TypeScript 7
+- Storybook **Introduction** story with a live component overview
+- `loadAllIcons` and `DayOfWeek` public exports
 
 ### Changed
-- Updated bundle size to ~28 kB (~9 kB gzipped) with new components
-- Enhanced documentation with Calendar examples
-- Updated component count from 3 to 5 components
-- Improved PROJECT_SUMMARY.md with latest statistics
-- Refreshed QUICK_START.md with Calendar examples
+
+- Simplified the public API: removed the redundant per-component `styles.ts` loaders (components already import their own SCSS) and the non-functional per-component subpath exports; only the package root and `./styles` are exposed
+- Upgraded dependencies to latest majors: React 19.3, TypeScript 7, Vite 8, Vitest 5, Storybook 10.6, Stylelint 17, Oxlint 1.82, jsdom 30, and others
+- Moved long-form docs into `docs/` (`BUNDLE_OPTIMIZATION.md`, `PROJECT_SUMMARY.md`, `QUICK_START.md`)
+- Reformatted the codebase with oxfmt (tabs, single quotes)
+- Renamed the `type-check` script to `typecheck` and `vite.config.ts` to `vite.config.mts` (ESM), clearing Vite's `configLoader: 'native'` warning
+- Improved `PROJECT_SUMMARY.md` with current statistics
+- Refreshed `QUICK_START.md` with Calendar examples
+- Named the Storybook `render` functions that use hooks so `react-hooks/rules-of-hooks` passes
 
 ### Fixed
-- Cleaned up .DS_Store files from repository
-- Removed backup files (package.json.bak)
+
+- TypeScript 7 build/test compatibility via the `@typescript/typescript6` compiler fallback
+- jest-dom v7 matcher types by including `vitest.setup.ts` in the TypeScript program
+- Icon test font-size assertions under jsdom 30
+- Stylelint empty-line rule violations in `Calendar.scss`
+- Removed stray `.DS_Store` and backup files
+- Repaired the oxlint config: renamed `oxlintrc.json` to `.oxlintrc.json` so it is actually discovered, removed rule names not present in oxlint 1.82, added `env.browser`, and ignored the generated `src/assets/icons/iconfont.js` (clears the "minified file" warning)
+- `Input` now derives its fallback id with `useId` instead of `Math.random()` during render, so the id stays stable across re-renders
+- `Modal` derives `shouldRender` from `showModal || isAnimating` instead of storing it in state
+- Migrated `Calendar.scss` from the deprecated Sass `@import` to `@use '../../styles/utilities' as *`, clearing the Dart Sass 3.0 deprecation warning from `pnpm build`
 
 ## [1.0.0] - 2025-12-14
 
 ### Added
+
 - Initial release of @jayson991/react-ui
 - Modal component with multiple sizes (small, medium, large, fullscreen)
 - Button component with 4 variants (primary, secondary, danger, ghost)
@@ -72,6 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Features
 
 #### Modal Component
+
 - Flexible sizes: small (400px), medium (680px), large (900px), fullscreen
 - Centered and non-centered positioning options
 - Smooth fade animations with customizable duration
@@ -82,6 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Responsive padding and dimensions
 
 #### Button Component
+
 - 4 variants: primary, secondary, danger, ghost
 - 3 sizes: small, medium, large
 - Loading state with spinner
@@ -91,6 +87,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Responsive sizing for different screen sizes
 
 #### Input Component
+
 - Label support with automatic ID generation
 - Error message display
 - Helper text support
@@ -101,6 +98,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Responsive sizing and touch-optimized inputs
 
 ### Technical Details
+
 - React 19.2.3
 - TypeScript 5.9.3
 - Sass 1.96.0

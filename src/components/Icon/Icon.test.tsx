@@ -12,13 +12,17 @@ describe('Icon Component', () => {
 		});
 
 		it('should render with custom className', () => {
-			const { container } = render(<Icon name="home" className="custom-class" />);
+			const { container } = render(
+				<Icon name="home" className="custom-class" />,
+			);
 			const icon = container.querySelector('.icon-wrapper');
 			expect(icon).toHaveClass('custom-class');
 		});
 
 		it('should render with inline styles', () => {
-			const { container } = render(<Icon name="home" style={{ margin: '10px' }} />);
+			const { container } = render(
+				<Icon name="home" style={{ margin: '10px' }} />,
+			);
 			const icon = container.querySelector('.iconfont');
 			expect(icon).toHaveStyle({ margin: '10px' });
 		});
@@ -87,8 +91,8 @@ describe('Icon Component', () => {
 
 		it('should apply size as string with em', () => {
 			const { container } = render(<Icon name="home" size="2em" />);
-			const icon = container.querySelector('.iconfont');
-			expect(icon).toHaveStyle({ fontSize: '2em' });
+			const icon = container.querySelector<HTMLElement>('.iconfont');
+			expect(icon?.style.fontSize).toBe('2em');
 		});
 
 		it('should apply size in SVG mode', () => {
@@ -124,7 +128,9 @@ describe('Icon Component', () => {
 		});
 
 		it('should apply color in SVG mode', () => {
-			const { container } = render(<Icon name="home" type="svg" color="#00ff00" />);
+			const { container } = render(
+				<Icon name="home" type="svg" color="#00ff00" />,
+			);
 			const svg = container.querySelector('svg');
 			expect(svg).toHaveStyle({ color: '#00ff00' });
 		});
@@ -163,7 +169,9 @@ describe('Icon Component', () => {
 		it('should work with SVG type', async () => {
 			const handleClick = vi.fn();
 			const user = userEvent.setup();
-			const { container } = render(<Icon name="home" type="svg" onClick={handleClick} />);
+			const { container } = render(
+				<Icon name="home" type="svg" onClick={handleClick} />,
+			);
 			const wrapper = container.querySelector('.icon-wrapper');
 			await user.click(wrapper!);
 			expect(handleClick).toHaveBeenCalledTimes(1);
@@ -190,7 +198,9 @@ describe('Icon Component', () => {
 		});
 
 		it('should not have aria-hidden on SVG when ariaLabel provided', () => {
-			const { container } = render(<Icon name="home" type="svg" ariaLabel="Home" />);
+			const { container } = render(
+				<Icon name="home" type="svg" ariaLabel="Home" />,
+			);
 			const svg = container.querySelector('svg');
 			expect(svg).toHaveAttribute('aria-hidden', 'false');
 		});
@@ -254,13 +264,17 @@ describe('Icon Component', () => {
 		});
 
 		it('should flip both horizontally and vertically', () => {
-			const { container } = render(<Icon name="arrow-right" flipHorizontal flipVertical />);
+			const { container } = render(
+				<Icon name="arrow-right" flipHorizontal flipVertical />,
+			);
 			const icon = container.querySelector('.iconfont');
 			expect(icon).toHaveStyle({ transform: 'scaleX(-1) scaleY(-1)' });
 		});
 
 		it('should combine rotation and flip', () => {
-			const { container } = render(<Icon name="arrow-right" rotate={90} flipHorizontal />);
+			const { container } = render(
+				<Icon name="arrow-right" rotate={90} flipHorizontal />,
+			);
 			const icon = container.querySelector('.iconfont');
 			expect(icon).toHaveStyle({ transform: 'rotate(90deg) scaleX(-1)' });
 		});
@@ -303,7 +317,9 @@ describe('Icon Component', () => {
 		it('should not call onClick when disabled', async () => {
 			const handleClick = vi.fn();
 			const user = userEvent.setup();
-			const { container } = render(<Icon name="home" onClick={handleClick} disabled />);
+			const { container } = render(
+				<Icon name="home" onClick={handleClick} disabled />,
+			);
 			const wrapper = container.querySelector('.icon-wrapper');
 			await user.click(wrapper!);
 			expect(handleClick).not.toHaveBeenCalled();
@@ -317,7 +333,9 @@ describe('Icon Component', () => {
 
 		it('should not have tabindex when disabled', () => {
 			const handleClick = vi.fn();
-			const { container } = render(<Icon name="home" onClick={handleClick} disabled />);
+			const { container } = render(
+				<Icon name="home" onClick={handleClick} disabled />,
+			);
 			const wrapper = container.querySelector('.icon-wrapper');
 			expect(wrapper).not.toHaveAttribute('tabindex');
 		});
@@ -339,7 +357,9 @@ describe('Icon Component', () => {
 		it('should not call onClick when loading', async () => {
 			const handleClick = vi.fn();
 			const user = userEvent.setup();
-			const { container } = render(<Icon name="save" onClick={handleClick} loading />);
+			const { container } = render(
+				<Icon name="save" onClick={handleClick} loading />,
+			);
 			const wrapper = container.querySelector('.icon-wrapper');
 			await user.click(wrapper!);
 			expect(handleClick).not.toHaveBeenCalled();
@@ -353,7 +373,9 @@ describe('Icon Component', () => {
 
 		it('should not have tabindex when loading', () => {
 			const handleClick = vi.fn();
-			const { container } = render(<Icon name="save" onClick={handleClick} loading />);
+			const { container } = render(
+				<Icon name="save" onClick={handleClick} loading />,
+			);
 			const wrapper = container.querySelector('.icon-wrapper');
 			expect(wrapper).not.toHaveAttribute('tabindex');
 		});
@@ -381,7 +403,9 @@ describe('Icon Component', () => {
 		});
 
 		it('should apply custom badge color', () => {
-			const { container } = render(<Icon name="bell" badge={5} badgeColor="#10b981" />);
+			const { container } = render(
+				<Icon name="bell" badge={5} badgeColor="#10b981" />,
+			);
 			const badge = container.querySelector('.icon-badge');
 			expect(badge).toHaveStyle({ backgroundColor: '#10b981' });
 		});
@@ -418,7 +442,7 @@ describe('Icon Component', () => {
 			const handleClick = vi.fn();
 			const user = userEvent.setup();
 			const { container } = render(<Icon name="home" onClick={handleClick} />);
-			const wrapper = container.querySelector('.icon-wrapper');
+			const wrapper = container.querySelector<HTMLElement>('.icon-wrapper');
 			wrapper!.focus();
 			await user.keyboard('{Enter}');
 			expect(handleClick).toHaveBeenCalledTimes(1);
@@ -428,7 +452,7 @@ describe('Icon Component', () => {
 			const handleClick = vi.fn();
 			const user = userEvent.setup();
 			const { container } = render(<Icon name="home" onClick={handleClick} />);
-			const wrapper = container.querySelector('.icon-wrapper');
+			const wrapper = container.querySelector<HTMLElement>('.icon-wrapper');
 			wrapper!.focus();
 			await user.keyboard(' ');
 			expect(handleClick).toHaveBeenCalledTimes(1);
@@ -441,7 +465,7 @@ describe('Icon Component', () => {
 			const { container } = render(
 				<Icon name="home" onClick={handleClick} onKeyDown={handleKeyDown} />,
 			);
-			const wrapper = container.querySelector('.icon-wrapper');
+			const wrapper = container.querySelector<HTMLElement>('.icon-wrapper');
 			wrapper!.focus();
 			await user.keyboard('a');
 			expect(handleKeyDown).toHaveBeenCalledTimes(1);
@@ -451,7 +475,7 @@ describe('Icon Component', () => {
 			const handleClick = vi.fn();
 			const user = userEvent.setup();
 			const { container } = render(<Icon name="home" onClick={handleClick} />);
-			const wrapper = container.querySelector('.icon-wrapper');
+			const wrapper = container.querySelector<HTMLElement>('.icon-wrapper');
 			wrapper!.focus();
 			await user.keyboard('a');
 			expect(handleClick).not.toHaveBeenCalled();
@@ -462,9 +486,14 @@ describe('Icon Component', () => {
 			const handleKeyDown = vi.fn();
 			const user = userEvent.setup();
 			const { container } = render(
-				<Icon name="home" onClick={handleClick} onKeyDown={handleKeyDown} disabled />,
+				<Icon
+					name="home"
+					onClick={handleClick}
+					onKeyDown={handleKeyDown}
+					disabled
+				/>,
 			);
-			const wrapper = container.querySelector('.icon-wrapper');
+			const wrapper = container.querySelector<HTMLElement>('.icon-wrapper');
 			wrapper!.focus();
 			await user.keyboard('{Enter}');
 			expect(handleClick).not.toHaveBeenCalled();

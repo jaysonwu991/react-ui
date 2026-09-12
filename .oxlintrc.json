@@ -1,0 +1,31 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"plugins": ["react"],
+	"env": {
+		"browser": true
+	},
+	"rules": {
+		"react/jsx-key": "error",
+		"react/jsx-no-undef": "error",
+		"react/no-direct-mutation-state": "error",
+		"react/no-find-dom-node": "error",
+		"react/no-is-mounted": "error",
+		"react/no-render-return-value": "error",
+		"react/no-string-refs": "error",
+		"react/no-unescaped-entities": "error",
+		"react/no-unknown-property": "error",
+		"react/require-render-return": "error",
+		"react/react-in-jsx-scope": "off",
+		"react/rules-of-hooks": "error",
+		"react/exhaustive-deps": "warn",
+		"no-unused-vars": "warn",
+		"no-undef": "error",
+		"no-console": "off"
+	},
+	"categories": {
+		"correctness": "error",
+		"suspicious": "warn",
+		"pedantic": "off"
+	},
+	"ignorePatterns": ["src/assets/icons/iconfont.js"]
+}

@@ -1,4 +1,4 @@
-// Export all components and types
+// Components
 export { Modal, Button, Input, Icon, Calendar } from './components';
 export type {
 	ModalProps,
@@ -11,15 +11,9 @@ export type {
 	IconProps,
 	CalendarProps,
 	CalendarView,
+	DayOfWeek,
 	DateRange,
 } from './components';
 
-// Export individual component style loaders for tree-shaking
-export { default as loadModalStyles } from './components/Modal/styles';
-export { default as loadButtonStyles } from './components/Button/styles';
-export { default as loadInputStyles } from './components/Input/styles';
-export { default as loadIconStyles } from './components/Icon/styles';
-export { default as loadCalendarStyles } from './components/Calendar/styles';
-
-// Export icon font loader (lazy-loadable)
-export { loadIconFont, loadIconSvg } from './assets/icons/loader';
+// Lazy-loadable icon assets
+export { loadIconFont, loadIconSvg, loadAllIcons } from './assets/icons/loader';

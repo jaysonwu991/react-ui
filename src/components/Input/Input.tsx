@@ -1,9 +1,17 @@
-import type { InputHTMLAttributes, ReactNode, FC } from 'react';
+import {
+	useId,
+	type InputHTMLAttributes,
+	type ReactNode,
+	type FC,
+} from 'react';
 import './Input.scss';
 
 export type InputSize = 'small' | 'medium' | 'large';
 
-export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'> {
+export interface InputProps extends Omit<
+	InputHTMLAttributes<HTMLInputElement>,
+	'size' | 'prefix'
+> {
 	/** Label for the input */
 	label?: string;
 	/** Error message */
@@ -34,7 +42,8 @@ const Input: FC<InputProps> = ({
 	id,
 	...props
 }) => {
-	const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+	const generatedId = useId();
+	const inputId = id || generatedId;
 
 	const wrapperClasses = [
 		'input-wrapper',
@@ -67,7 +76,9 @@ const Input: FC<InputProps> = ({
 				{suffix && <span className="input__suffix">{suffix}</span>}
 			</div>
 			{error && <span className="input__error">{error}</span>}
-			{!error && helperText && <span className="input__helper">{helperText}</span>}
+			{!error && helperText && (
+				<span className="input__helper">{helperText}</span>
+			)}
 		</div>
 	);
 };

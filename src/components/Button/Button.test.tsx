@@ -181,12 +181,22 @@ describe('Button Component', () => {
 				</Button>,
 			);
 			const button = screen.getByRole('button');
-			expect(button).toHaveClass('btn--danger', 'btn--large', 'btn--full-width');
+			expect(button).toHaveClass(
+				'btn--danger',
+				'btn--large',
+				'btn--full-width',
+			);
 		});
 
 		it('should combine all classes correctly', () => {
 			render(
-				<Button variant="secondary" size="small" fullWidth loading className="custom">
+				<Button
+					variant="secondary"
+					size="small"
+					fullWidth
+					loading
+					className="custom"
+				>
 					Complex
 				</Button>,
 			);

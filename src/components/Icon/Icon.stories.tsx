@@ -152,7 +152,13 @@ export const Colors: Story = {
 // Common Icons - All icons from iconfont.json
 export const CommonIcons: Story = {
 	render: () => (
-		<div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '24px' }}>
+		<div
+			style={{
+				display: 'grid',
+				gridTemplateColumns: 'repeat(6, 1fr)',
+				gap: '24px',
+			}}
+		>
 			{[
 				'upload',
 				'user',
@@ -309,7 +315,13 @@ export const InButtons: Story = {
 // Icon States
 export const IconStates: Story = {
 	render: () => (
-		<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+		<div
+			style={{
+				display: 'grid',
+				gridTemplateColumns: 'repeat(3, 1fr)',
+				gap: '24px',
+			}}
+		>
 			<div>
 				<h4 style={{ marginTop: 0, fontSize: '14px' }}>Default</h4>
 				<Icon name="bell" size={32} color="#6b7280" />
@@ -344,23 +356,33 @@ export const Rotations: Story = {
 		<div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="arrow-right" size={32} color="#3b82f6" />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>0°</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					0°
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="arrow-right" size={32} color="#3b82f6" rotate={45} />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>45°</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					45°
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="arrow-right" size={32} color="#3b82f6" rotate={90} />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>90°</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					90°
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="arrow-right" size={32} color="#3b82f6" rotate={180} />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>180°</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					180°
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="arrow-right" size={32} color="#3b82f6" rotate={270} />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>270°</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					270°
+				</div>
 			</div>
 		</div>
 	),
@@ -372,19 +394,33 @@ export const Flips: Story = {
 		<div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="arrow-right" size={32} color="#10b981" />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>Default</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					Default
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="arrow-right" size={32} color="#10b981" flipHorizontal />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>Horizontal</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					Horizontal
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="arrow-right" size={32} color="#10b981" flipVertical />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>Vertical</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					Vertical
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
-				<Icon name="arrow-right" size={32} color="#10b981" flipHorizontal flipVertical />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>Both</div>
+				<Icon
+					name="arrow-right"
+					size={32}
+					color="#10b981"
+					flipHorizontal
+					flipVertical
+				/>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					Both
+				</div>
 			</div>
 		</div>
 	),
@@ -396,15 +432,21 @@ export const Animations: Story = {
 		<div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="settings" size={32} color="#3b82f6" spin />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>Spin</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					Spin
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="heart" size={32} color="#ef4444" pulse />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>Pulse</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					Pulse
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="star" size={32} color="#fbbf24" spin />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>Custom Spin</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					Custom Spin
+				</div>
 			</div>
 		</div>
 	),
@@ -457,19 +499,39 @@ export const Badges: Story = {
 		<div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="bell" size={32} color="#6b7280" badge={5} />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>Notifications</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					Notifications
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
 				<Icon name="mail" size={32} color="#6b7280" badge={99} />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>Messages</div>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					Messages
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
-				<Icon name="download" size={32} color="#6b7280" badge={3} badgeColor="#10b981" />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>Downloads</div>
+				<Icon
+					name="download"
+					size={32}
+					color="#6b7280"
+					badge={3}
+					badgeColor="#10b981"
+				/>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					Downloads
+				</div>
 			</div>
 			<div style={{ textAlign: 'center' }}>
-				<Icon name="user" size={32} color="#6b7280" badge="NEW" badgeColor="#8b5cf6" />
-				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>Profile</div>
+				<Icon
+					name="user"
+					size={32}
+					color="#6b7280"
+					badge="NEW"
+					badgeColor="#8b5cf6"
+				/>
+				<div style={{ fontSize: '12px', marginTop: '8px', color: '#6b7280' }}>
+					Profile
+				</div>
 			</div>
 		</div>
 	),
@@ -558,8 +620,20 @@ export const ComplexExample: Story = {
 			</div>
 
 			<div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-				<Icon name="settings" size={24} color="#6b7280" spin title="Syncing..." />
-				<Icon name="download" size={24} color="#10b981" rotate={180} title="Upload file" />
+				<Icon
+					name="settings"
+					size={24}
+					color="#6b7280"
+					spin
+					title="Syncing..."
+				/>
+				<Icon
+					name="download"
+					size={24}
+					color="#10b981"
+					rotate={180}
+					title="Upload file"
+				/>
 				<Icon
 					name="arrow-left"
 					size={24}

@@ -1,133 +1,95 @@
 # Contributing to @jayson991/react-ui
 
-First off, thank you for considering contributing to @jayson991/react-ui! It's people like you that make this library better for everyone.
+Thanks for your interest in improving @jayson991/react-ui!
 
 ## Code of Conduct
 
-This project and everyone participating in it is expected to uphold a high standard of professionalism and respect.
+Be professional and respectful in all project interactions.
 
-## How Can I Contribute?
+## Reporting Bugs & Suggesting Enhancements
 
-### Reporting Bugs
+Search existing issues first to avoid duplicates. When opening an issue, include a clear title, steps to reproduce (or a detailed proposal), expected vs. actual behavior, and your environment (OS, browser, Node version).
 
-Before creating bug reports, please check the existing issues to avoid duplicates. When you create a bug report, include as many details as possible:
+## Pull Requests
 
-- **Use a clear and descriptive title**
-- **Describe the exact steps to reproduce the problem**
-- **Provide specific examples to demonstrate the steps**
-- **Describe the behavior you observed and what you expected**
-- **Include screenshots if relevant**
-- **Note your environment** (OS, browser, Node version, etc.)
-
-### Suggesting Enhancements
-
-Enhancement suggestions are tracked as GitHub issues. When creating an enhancement suggestion, include:
-
-- **Use a clear and descriptive title**
-- **Provide a detailed description of the suggested enhancement**
-- **Explain why this enhancement would be useful**
-- **Include code examples if applicable**
-
-### Pull Requests
-
-1. **Fork the repo** and create your branch from `main`
-2. **Install dependencies** with `pnpm install`
-3. **Make your changes** following the coding guidelines below
-4. **Add tests** for any new functionality
-5. **Ensure all tests pass** with `pnpm test`
-6. **Update documentation** if needed
-7. **Commit your changes** with clear, descriptive messages
-8. **Push to your fork** and submit a pull request
+1. Fork the repo and branch from `main`.
+2. Install dependencies with `pnpm install`.
+3. Make your changes following the guidelines below.
+4. Add or update tests.
+5. Run the full check suite (see [Testing Requirements](#testing-requirements)).
+6. Update documentation if behavior changed.
+7. Commit with a [Conventional Commit](#commit-messages) message and open a pull request.
 
 ## Development Setup
 
+Requires Node.js 20+ and pnpm.
+
 ```bash
-# Clone your fork
 git clone https://github.com/YOUR_USERNAME/react-ui.git
 cd react-ui
-
-# Install dependencies
 pnpm install
 
-# Run tests
-pnpm test
-
-# Run tests in watch mode
-pnpm test:watch
-
-# Type checking
-pnpm type-check
-
-# Linting
-pnpm lint
-pnpm lint:sass
-
-# Build
-pnpm build
-
-# Run Storybook
-pnpm storybook
+pnpm test           # run tests once
+pnpm test:watch     # watch mode
+pnpm test:coverage  # coverage report
+pnpm typecheck      # tsc --noEmit
+pnpm lint           # oxlint
+pnpm lint:sass      # stylelint
+pnpm format         # oxfmt (writes)
+pnpm format:check   # oxfmt (check only)
+pnpm build          # build the library
+pnpm storybook      # Storybook on port 6006
 ```
 
 ## Coding Guidelines
 
 ### TypeScript
 
-- Use TypeScript for all new code
-- Define proper types and interfaces
-- Avoid `any` types when possible
-- Use strict mode settings
+- Type all new code; avoid `any`.
+- TypeScript is strict with `noUnusedLocals` and `noUnusedParameters` — remove unused code.
 
-### React Components
+### React
 
-- Use functional components with hooks
-- Follow React best practices
-- Keep components focused and single-purpose
-- Use meaningful prop names
-- Document props with JSDoc comments
+- Use function components with hooks.
+- Keep components focused and single-purpose.
+- Name props clearly and document them with JSDoc comments.
 
 ### Styling
 
-- Use Sass (.scss files) for styling
-- Follow BEM naming convention
-- Keep styles modular and component-specific
-- Ensure responsive design for all screen sizes
-- Support accessibility (WCAG 2.1 Level AA)
+- Use Sass (`.scss`) and BEM class names.
+- Keep styles component-scoped; import the component stylesheet from its `.tsx`.
+- Reuse the variables, breakpoints, and mixins in `src/styles/_utilities.scss`.
+- Ensure responsive and accessible output (WCAG 2.1 AA).
+
+### Formatting & Linting
+
+- **oxfmt** formats all code (`pnpm format`); tabs, single quotes, 80-column width.
+- **oxlint** lints JS/TS (`pnpm lint`, `pnpm lint:fix`).
+- **stylelint** lints Sass (`pnpm lint:sass`, `pnpm format:sass`).
+- Do not hand-format around these tools.
 
 ### Testing
 
-- Write tests for all new features
-- Maintain or improve test coverage (target: >85%)
-- Use React Testing Library for component tests
-- Test user interactions and accessibility
-- Use descriptive test names
+- Write tests for new features with React Testing Library.
+- Test user interactions and accessibility, not implementation details.
+- Coverage thresholds are enforced at **70%** (branches, functions, lines, statements) in `vite.config.mts`.
 
 ### Commit Messages
 
-Follow conventional commit format:
+Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
 type(scope): subject
-
-body (optional)
-
-footer (optional)
 ```
 
-Types:
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, etc.)
-- `refactor`: Code refactoring
-- `test`: Adding or updating tests
-- `chore`: Maintenance tasks
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
 
 Examples:
+
 ```
 feat(Button): add icon support
-fix(Modal): prevent scroll when modal is open
-docs(README): update installation instructions
+fix(Modal): prevent body scroll while open
+docs(README): correct Calendar props
 ```
 
 ## Project Structure
@@ -138,36 +100,36 @@ src/
 │   ├── Button/
 │   │   ├── Button.tsx          # Component implementation
 │   │   ├── Button.scss         # Component styles
-│   │   ├── Button.test.tsx     # Component tests
+│   │   ├── Button.test.tsx     # Tests
 │   │   ├── Button.stories.tsx  # Storybook stories
 │   │   └── index.ts            # Public exports
-│   ├── Input/
-│   ├── Modal/
-│   └── index.ts                # All component exports
+│   ├── Input/  Icon/  Modal/  Calendar/
+│   └── index.ts                # Component barrel
+├── styles/_utilities.scss      # Shared variables, breakpoints, mixins
+├── assets/icons/               # Icon fonts, SVG symbols, loader
 └── index.ts                    # Library entry point
+docs/                           # Long-form documentation
 ```
+
+Every component follows the same five-file layout.
 
 ## Testing Requirements
 
-All PRs must:
-- Pass all existing tests
-- Include tests for new functionality
-- Maintain or improve code coverage
-- Pass type checking (`pnpm type-check`)
-- Pass linting (`pnpm lint` and `pnpm lint:sass`)
+All pull requests must:
+
+- Pass the existing test suite and include tests for new behavior.
+- Pass `pnpm typecheck`.
+- Pass `pnpm lint` and `pnpm lint:sass`.
+- Be formatted with `pnpm format`.
+
+There is no CI pipeline; run these locally before pushing.
 
 ## Documentation
 
-- Update README.md for new features
-- Add JSDoc comments to component props
-- Create Storybook stories for new components
-- Update CHANGELOG.md following Keep a Changelog format
+- Update `README.md` for user-facing changes.
+- Add Storybook stories for new components or props.
+- Record notable changes in `CHANGELOG.md` (Keep a Changelog format).
 
 ## Questions?
 
-Feel free to open an issue for:
-- Questions about the codebase
-- Clarification on contribution guidelines
-- Discussion about potential features
-
-Thank you for contributing! 🎉
+Open an issue for questions about the codebase or contribution process.

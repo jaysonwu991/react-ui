@@ -159,7 +159,11 @@ const Icon: FC<IconProps> = ({
 		if (!color) return undefined;
 
 		// If it's already a valid CSS color (contains # or is a named color)
-		if (color.startsWith('#') || color.startsWith('rgb') || /^[a-z]+$/i.test(color)) {
+		if (
+			color.startsWith('#') ||
+			color.startsWith('rgb') ||
+			/^[a-z]+$/i.test(color)
+		) {
 			return color;
 		}
 
@@ -236,17 +240,18 @@ const Icon: FC<IconProps> = ({
 	// Determine the actual icon to render (loading overrides name)
 	const iconName = loading ? 'loading' : name;
 
-	const iconContent = type === 'svg' ? (
-		<svg className="icon-svg" style={iconStyle} aria-hidden={!ariaLabel}>
-			<use xlinkHref={`#icon-${iconName}`} />
-		</svg>
-	) : (
-		<span
-			className={`iconfont icon-${iconName}`}
-			style={iconStyle}
-			aria-hidden={!ariaLabel}
-		/>
-	);
+	const iconContent =
+		type === 'svg' ? (
+			<svg className="icon-svg" style={iconStyle} aria-hidden={!ariaLabel}>
+				<use xlinkHref={`#icon-${iconName}`} />
+			</svg>
+		) : (
+			<span
+				className={`iconfont icon-${iconName}`}
+				style={iconStyle}
+				aria-hidden={!ariaLabel}
+			/>
+		);
 
 	return (
 		<span

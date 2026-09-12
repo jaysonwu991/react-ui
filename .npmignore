@@ -15,7 +15,7 @@ src/
 .npmignore
 .stylelintrc.json
 tsconfig.json
-vite.config.ts
+vite.config.mts
 vitest.setup.ts
 
 # Storybook

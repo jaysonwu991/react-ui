@@ -32,424 +32,429 @@ $z-index-modal: 1000;
 
 // Mixins
 @mixin respond-to($breakpoint) {
-  @if $breakpoint == mobile {
-    @media (max-width: $breakpoint-mobile) {
-      @content;
-    }
-  } @else if $breakpoint == tablet {
-    @media (min-width: $breakpoint-mobile-up) and (max-width: $breakpoint-tablet) {
-      @content;
-    }
-  } @else if $breakpoint == desktop {
-    @media (min-width: $breakpoint-desktop) {
-      @content;
-    }
-  } @else if $breakpoint == tablet-up {
-    @media (min-width: $breakpoint-mobile-up) {
-      @content;
-    }
-  } @else if $breakpoint == tablet-down {
-    @media (max-width: $breakpoint-tablet) {
-      @content;
-    }
-  }
+	@if $breakpoint == mobile {
+		@media (max-width: $breakpoint-mobile) {
+			@content;
+		}
+	} @else if $breakpoint == tablet {
+		@media (min-width: $breakpoint-mobile-up) and (max-width: $breakpoint-tablet) {
+			@content;
+		}
+	} @else if $breakpoint == desktop {
+		@media (min-width: $breakpoint-desktop) {
+			@content;
+		}
+	} @else if $breakpoint == tablet-up {
+		@media (min-width: $breakpoint-mobile-up) {
+			@content;
+		}
+	} @else if $breakpoint == tablet-down {
+		@media (max-width: $breakpoint-tablet) {
+			@content;
+		}
+	}
 }
 
 // Modal wrapper (backdrop)
 .modal-wrapper {
-  position: fixed;
-  inset: 0;
-  z-index: $z-index-modal;
-  overflow: auto;
-  background-color: $backdrop-color;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: $spacing-lg;
+	position: fixed;
+	inset: 0;
+	z-index: $z-index-modal;
+	overflow: auto;
+	background-color: $backdrop-color;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	padding: $spacing-lg;
 
-  @include respond-to(tablet-down) {
-    padding: $spacing-md;
-  }
+	@include respond-to(tablet-down) {
+		padding: $spacing-md;
+	}
 
-  @include respond-to(mobile) {
-    padding: $spacing-sm;
-  }
+	@include respond-to(mobile) {
+		padding: $spacing-sm;
+	}
 
-  &--centered {
-    align-items: center;
-  }
+	&--centered {
+		align-items: center;
+	}
 
-  &--hidden {
-    visibility: hidden;
-  }
+	&--hidden {
+		visibility: hidden;
+	}
 
-  // Animation support
-  &--animated {
-    opacity: 0;
-    transition: opacity $animation-duration $animation-easing;
+	// Animation support
+	&--animated {
+		opacity: 0;
+		transition: opacity $animation-duration $animation-easing;
 
-    &.modal-wrapper--visible {
-      opacity: 1;
-    }
-  }
+		&.modal-wrapper--visible {
+			opacity: 1;
+		}
+	}
 }
 
 // Modal content container
 .modal-content {
-  position: relative;
-  background-color: $modal-bg;
-  border-radius: 8px;
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 10%),
-    0 10px 10px -5px rgb(0 0 0 / 4%);
-  width: 100%;
-  max-width: $modal-size-medium;
-  margin: auto;
+	position: relative;
+	background-color: $modal-bg;
+	border-radius: 8px;
+	box-shadow:
+		0 20px 25px -5px rgb(0 0 0 / 10%),
+		0 10px 10px -5px rgb(0 0 0 / 4%);
+	width: 100%;
+	max-width: $modal-size-medium;
+	margin: auto;
 
-  @include respond-to(tablet-down) {
-    border-radius: 6px;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%),
-      0 4px 6px -2px rgb(0 0 0 / 5%);
-  }
+	@include respond-to(tablet-down) {
+		border-radius: 6px;
+		box-shadow:
+			0 10px 15px -3px rgb(0 0 0 / 10%),
+			0 4px 6px -2px rgb(0 0 0 / 5%);
+	}
 
-  @include respond-to(mobile) {
-    border-radius: 4px;
-    margin: $spacing-sm auto;
-  }
+	@include respond-to(mobile) {
+		border-radius: 4px;
+		margin: $spacing-sm auto;
+	}
 
-  // Size variants
-  &--small {
-    max-width: $modal-size-small;
+	// Size variants
+	&--small {
+		max-width: $modal-size-small;
 
-    @include respond-to(tablet-down) {
-      max-width: 90%;
-    }
+		@include respond-to(tablet-down) {
+			max-width: 90%;
+		}
 
-    @include respond-to(mobile) {
-      max-width: 95%;
-    }
-  }
+		@include respond-to(mobile) {
+			max-width: 95%;
+		}
+	}
 
-  &--medium {
-    max-width: $modal-size-medium;
+	&--medium {
+		max-width: $modal-size-medium;
 
-    @include respond-to(tablet-down) {
-      max-width: 85%;
-    }
+		@include respond-to(tablet-down) {
+			max-width: 85%;
+		}
 
-    @include respond-to(mobile) {
-      max-width: 95%;
-    }
-  }
+		@include respond-to(mobile) {
+			max-width: 95%;
+		}
+	}
 
-  &--large {
-    max-width: $modal-size-large;
+	&--large {
+		max-width: $modal-size-large;
 
-    @include respond-to(tablet-down) {
-      max-width: 90%;
-    }
+		@include respond-to(tablet-down) {
+			max-width: 90%;
+		}
 
-    @include respond-to(mobile) {
-      max-width: 95%;
-    }
-  }
+		@include respond-to(mobile) {
+			max-width: 95%;
+		}
+	}
 
-  &--fullscreen {
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    margin: 0;
+	&--fullscreen {
+		max-width: 100%;
+		width: 100%;
+		height: 100%;
+		border-radius: 0;
+		margin: 0;
 
-    @include respond-to(tablet-down) {
-      border-radius: 0;
-    }
-  }
+		@include respond-to(tablet-down) {
+			border-radius: 0;
+		}
+	}
 
-  // Animation support
-  &--animated {
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity $animation-duration $animation-easing,
-      transform $animation-duration $animation-easing;
+	// Animation support
+	&--animated {
+		opacity: 0;
+		transform: translateY(-20px);
+		transition:
+			opacity $animation-duration $animation-easing,
+			transform $animation-duration $animation-easing;
 
-    @include respond-to(mobile) {
-      transform: translateY(-10px);
-    }
+		@include respond-to(mobile) {
+			transform: translateY(-10px);
+		}
 
-    &.modal-content--visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+		&.modal-content--visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
 }
 
 // Modal header
 .modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: $spacing-lg;
-  border-bottom: 1px solid $border-color;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: $spacing-lg;
+	border-bottom: 1px solid $border-color;
 
-  @include respond-to(tablet-down) {
-    padding: $spacing-md;
-  }
+	@include respond-to(tablet-down) {
+		padding: $spacing-md;
+	}
 
-  @include respond-to(mobile) {
-    padding: $spacing-md $spacing-sm;
-  }
+	@include respond-to(mobile) {
+		padding: $spacing-md $spacing-sm;
+	}
 
-  &--no-border {
-    border-bottom: none;
-  }
+	&--no-border {
+		border-bottom: none;
+	}
 }
 
 // Modal title
 .modal-title {
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.5;
-  color: #1f2937;
+	margin: 0;
+	font-size: 1.25rem;
+	font-weight: 600;
+	line-height: 1.5;
+	color: #1f2937;
 
-  @include respond-to(tablet-down) {
-    font-size: 1.125rem;
-  }
+	@include respond-to(tablet-down) {
+		font-size: 1.125rem;
+	}
 
-  @include respond-to(mobile) {
-    font-size: 1rem;
-  }
+	@include respond-to(mobile) {
+		font-size: 1rem;
+	}
 }
 
 // Close button
 .modal-close-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  margin: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 200ms ease-in-out, opacity 200ms ease-in-out;
-  opacity: 0.2;
-  flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	margin: 0;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+	border-radius: 4px;
+	transition:
+		background-color 200ms ease-in-out,
+		opacity 200ms ease-in-out;
+	opacity: 0.2;
+	flex-shrink: 0;
 
-  @include respond-to(mobile) {
-    width: 28px;
-    height: 28px;
-  }
+	@include respond-to(mobile) {
+		width: 28px;
+		height: 28px;
+	}
 
-  &:hover {
-    opacity: 0.5;
-    background-color: rgb(0 0 0 / 5%);
-  }
+	&:hover {
+		opacity: 0.5;
+		background-color: rgb(0 0 0 / 5%);
+	}
 
-  &:active {
-    opacity: 0.7;
-    background-color: rgb(0 0 0 / 10%);
-  }
+	&:active {
+		opacity: 0.7;
+		background-color: rgb(0 0 0 / 10%);
+	}
 
-  &:focus {
-    outline: 2px solid #3b82f6;
-    outline-offset: 2px;
-  }
+	&:focus {
+		outline: 2px solid #3b82f6;
+		outline-offset: 2px;
+	}
 
-  &:focus:not(:focus-visible) {
-    outline: none;
-  }
+	&:focus:not(:focus-visible) {
+		outline: none;
+	}
 
-  // Close icon
-  .modal-close-icon {
-    display: block;
-    width: 20px;
-    height: 20px;
-    position: relative;
+	// Close icon
+	.modal-close-icon {
+		display: block;
+		width: 20px;
+		height: 20px;
+		position: relative;
 
-    @include respond-to(mobile) {
-      width: 18px;
-      height: 18px;
-    }
+		@include respond-to(mobile) {
+			width: 18px;
+			height: 18px;
+		}
 
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 2px;
-      background-color: $close-button-color;
-      transform: translate(-50%, -50%) rotate(45deg);
-    }
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 100%;
+			height: 2px;
+			background-color: $close-button-color;
+			transform: translate(-50%, -50%) rotate(45deg);
+		}
 
-    &::after {
-      transform: translate(-50%, -50%) rotate(-45deg);
-    }
-  }
+		&::after {
+			transform: translate(-50%, -50%) rotate(-45deg);
+		}
+	}
 }
 
 // Modal body
 .modal-body {
-  padding: $spacing-lg;
-  overflow-y: auto;
-  max-height: calc(100vh - 200px);
+	padding: $spacing-lg;
+	overflow-y: auto;
+	max-height: calc(100vh - 200px);
 
-  @include respond-to(tablet-down) {
-    padding: $spacing-md;
-    max-height: calc(100vh - 150px);
-  }
+	@include respond-to(tablet-down) {
+		padding: $spacing-md;
+		max-height: calc(100vh - 150px);
+	}
 
-  @include respond-to(mobile) {
-    padding: $spacing-md $spacing-sm;
-    max-height: calc(100vh - 120px);
-  }
+	@include respond-to(mobile) {
+		padding: $spacing-md $spacing-sm;
+		max-height: calc(100vh - 120px);
+	}
 
-  &--fullscreen {
-    max-height: calc(100vh - 100px);
+	&--fullscreen {
+		max-height: calc(100vh - 100px);
 
-    @include respond-to(mobile) {
-      max-height: calc(100vh - 80px);
-    }
-  }
+		@include respond-to(mobile) {
+			max-height: calc(100vh - 80px);
+		}
+	}
 
-  // Scrollbar styling
-  &::-webkit-scrollbar {
-    width: 8px;
+	// Scrollbar styling
+	&::-webkit-scrollbar {
+		width: 8px;
 
-    @include respond-to(mobile) {
-      width: 4px;
-    }
-  }
+		@include respond-to(mobile) {
+			width: 4px;
+		}
+	}
 
-  &::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 4px;
-  }
+	&::-webkit-scrollbar-track {
+		background: #f1f5f9;
+		border-radius: 4px;
+	}
 
-  &::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 4px;
+	&::-webkit-scrollbar-thumb {
+		background: #cbd5e1;
+		border-radius: 4px;
 
-    &:hover {
-      background: #94a3b8;
-    }
-  }
+		&:hover {
+			background: #94a3b8;
+		}
+	}
 }
 
 // Modal footer
 .modal-footer {
-  border-top: 1px solid $border-color;
+	border-top: 1px solid $border-color;
 
-  @include respond-to(mobile) {
-    padding: $spacing-md $spacing-sm;
-  }
+	@include respond-to(mobile) {
+		padding: $spacing-md $spacing-sm;
+	}
 }
 
 // Custom header/footer content
 .modal-custom-header,
 .modal-custom-footer {
-  padding: $spacing-lg;
+	padding: $spacing-lg;
 
-  @include respond-to(tablet-down) {
-    padding: $spacing-md;
-  }
+	@include respond-to(tablet-down) {
+		padding: $spacing-md;
+	}
 
-  @include respond-to(mobile) {
-    padding: $spacing-md $spacing-sm;
-  }
+	@include respond-to(mobile) {
+		padding: $spacing-md $spacing-sm;
+	}
 }
 
 // Dialog role styling
 .modal-dialog {
-  width: 100%;
-  max-width: 100%;
+	width: 100%;
+	max-width: 100%;
 }
 
 // Document role styling
 .modal-document {
-  position: relative;
-  width: 100%;
+	position: relative;
+	width: 100%;
 }
 
 // Utility classes
 .modal-no-scroll {
-  overflow: hidden;
+	overflow: hidden;
 }
 
 // Touch device optimizations
 @media (hover: none) and (pointer: coarse) {
-  .modal-close-button {
-    // Larger touch target for mobile devices
-    width: 44px;
-    height: 44px;
+	.modal-close-button {
+		// Larger touch target for mobile devices
+		width: 44px;
+		height: 44px;
 
-    &:hover {
-      // Remove hover effects on touch devices
-      opacity: 0.2;
-      background-color: transparent;
-    }
+		&:hover {
+			// Remove hover effects on touch devices
+			opacity: 0.2;
+			background-color: transparent;
+		}
 
-    &:active {
-      opacity: 0.5;
-      background-color: rgb(0 0 0 / 5%);
-    }
-  }
+		&:active {
+			opacity: 0.5;
+			background-color: rgb(0 0 0 / 5%);
+		}
+	}
 
-  .modal-body {
-    // Smoother scrolling on touch devices
-    -webkit-overflow-scrolling: touch;
-  }
+	.modal-body {
+		// Smoother scrolling on touch devices
+		-webkit-overflow-scrolling: touch;
+	}
 }
 
 // Print styles
 @media print {
-  .modal-wrapper {
-    position: static;
-    background: none;
-    padding: 0;
-  }
+	.modal-wrapper {
+		position: static;
+		background: none;
+		padding: 0;
+	}
 
-  .modal-content {
-    box-shadow: none;
-    border: 1px solid $border-color;
-    max-width: 100%;
-  }
+	.modal-content {
+		box-shadow: none;
+		border: 1px solid $border-color;
+		max-width: 100%;
+	}
 
-  .modal-close-button {
-    display: none;
-  }
+	.modal-close-button {
+		display: none;
+	}
 }
 
 // High contrast mode support
 @media (prefers-contrast: high) {
-  .modal-content {
-    border: 2px solid #000;
-  }
+	.modal-content {
+		border: 2px solid #000;
+	}
 
-  .modal-header,
-  .modal-footer {
-    border-color: #000;
-  }
+	.modal-header,
+	.modal-footer {
+		border-color: #000;
+	}
 
-  .modal-close-button {
-    opacity: 1;
-    border: 1px solid #000;
-  }
+	.modal-close-button {
+		opacity: 1;
+		border: 1px solid #000;
+	}
 }
 
 // Reduced motion support
 @media (prefers-reduced-motion: reduce) {
-  .modal-wrapper--animated,
-  .modal-content--animated {
-    transition: none;
-    animation: none;
-  }
+	.modal-wrapper--animated,
+	.modal-content--animated {
+		transition: none;
+		animation: none;
+	}
 
-  .modal-close-button {
-    transition: none;
-  }
+	.modal-close-button {
+		transition: none;
+	}
 }

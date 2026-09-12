@@ -1,0 +1,25 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"useTabs": true,
+	"tabWidth": 2,
+	"singleQuote": true,
+	"jsxSingleQuote": false,
+	"semi": true,
+	"trailingComma": "all",
+	"printWidth": 80,
+	"bracketSpacing": true,
+	"arrowParens": "always",
+	"endOfLine": "lf",
+	"insertFinalNewline": true,
+	"sortImports": false,
+	"sortPackageJson": false,
+	"ignorePatterns": [
+		"lib/**",
+		"node_modules/**",
+		"src/assets/icons/iconfont.js",
+		"src/assets/icons/iconfont.css",
+		"src/assets/icons/iconfont.json",
+		"src/assets/icons/demo.css",
+		"src/assets/icons/demo_index.html"
+	]
+}

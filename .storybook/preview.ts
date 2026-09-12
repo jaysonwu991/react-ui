@@ -7,29 +7,29 @@ import '../src/components/Input/Input.scss';
 import '../src/components/Icon/Icon.scss';
 
 const preview: Preview = {
-  parameters: {
-    layout: 'centered',
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
-      },
-    },
-    backgrounds: {
-      default: 'light',
-      values: [
-        {
-          name: 'light',
-          value: '#ffffff',
-        },
-        {
-          name: 'dark',
-          value: '#333333',
-        },
-      ],
-    },
-  },
-  tags: ['autodocs'],
+	parameters: {
+		layout: 'centered',
+		controls: {
+			matchers: {
+				color: /(background|color)$/i,
+				date: /Date$/i,
+			},
+		},
+		backgrounds: {
+			default: 'light',
+			values: [
+				{
+					name: 'light',
+					value: '#ffffff',
+				},
+				{
+					name: 'dark',
+					value: '#333333',
+				},
+			],
+		},
+	},
+	tags: ['autodocs'],
 };
 
 export default preview;

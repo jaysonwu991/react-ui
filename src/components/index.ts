@@ -10,4 +10,9 @@ export type { ModalProps, ModalSize } from './Modal';
 export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
 export type { InputProps, InputSize } from './Input';
 export type { IconProps } from './Icon';
-export type { CalendarProps, CalendarView, DayOfWeek, DateRange } from './Calendar';
+export type {
+	CalendarProps,
+	CalendarView,
+	DayOfWeek,
+	DateRange,
+} from './Calendar';

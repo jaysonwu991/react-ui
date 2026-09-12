@@ -41,7 +41,10 @@ export interface CalendarProps {
 	/** Custom render function for date cells */
 	renderDate?: (date: Date) => React.ReactNode;
 	/** Custom render function for header */
-	renderHeader?: (date: Date, changeMonth: (direction: number) => void) => React.ReactNode;
+	renderHeader?: (
+		date: Date,
+		changeMonth: (direction: number) => void,
+	) => React.ReactNode;
 	/** Month/Year view toggle */
 	view?: CalendarView;
 	/** Callback when view changes */
@@ -55,6 +58,14 @@ export interface CalendarProps {
 	/** Disable component */
 	disabled?: boolean;
 }
+
+const isSameDay = (date1: Date, date2: Date): boolean => {
+	return (
+		date1.getFullYear() === date2.getFullYear() &&
+		date1.getMonth() === date2.getMonth() &&
+		date1.getDate() === date2.getDate()
+	);
+};
 
 const Calendar: FC<CalendarProps> = ({
 	value = null,
@@ -82,19 +93,16 @@ const Calendar: FC<CalendarProps> = ({
 }) => {
 	const today = new Date();
 	const [currentDate, setCurrentDate] = useState(
-		defaultValue || (value && !Array.isArray(value) && 'start' in value ? value.start : value instanceof Date ? value : today) || today
+		defaultValue ||
+			(value && !Array.isArray(value) && 'start' in value
+				? value.start
+				: value instanceof Date
+					? value
+					: today) ||
+			today,
 	);
 	const [internalView, setInternalView] = useState<CalendarView>('month');
 	const activeView = controlledView ?? internalView;
-
-	// Helper functions
-	const isSameDay = (date1: Date, date2: Date): boolean => {
-		return (
-			date1.getFullYear() === date2.getFullYear() &&
-			date1.getMonth() === date2.getMonth() &&
-			date1.getDate() === date2.getDate()
-		);
-	};
 
 	const isDateDisabled = useCallback(
 		(date: Date): boolean => {
@@ -105,7 +113,7 @@ const Calendar: FC<CalendarProps> = ({
 			if (typeof disabledDates === 'function') return disabledDates(date);
 			return disabledDates.some((d) => isSameDay(d, date));
 		},
-		[disabled, minDate, maxDate, disabledDates]
+		[disabled, minDate, maxDate, disabledDates],
 	);
 
 	const isDateHighlighted = useCallback(
@@ -114,7 +122,7 @@ const Calendar: FC<CalendarProps> = ({
 			if (typeof highlightedDates === 'function') return highlightedDates(date);
 			return highlightedDates.some((d) => isSameDay(d, date));
 		},
-		[highlightedDates]
+		[highlightedDates],
 	);
 
 	const isDateSelected = useCallback(
@@ -127,7 +135,7 @@ const Calendar: FC<CalendarProps> = ({
 			}
 			return false;
 		},
-		[value]
+		[value],
 	);
 
 	const isDateInRange = useCallback(
@@ -135,7 +143,7 @@ const Calendar: FC<CalendarProps> = ({
 			if (!value || !('start' in value)) return false;
 			return date > value.start && date < value.end;
 		},
-		[value]
+		[value],
 	);
 
 	const isRangeStart = useCallback(
@@ -143,7 +151,7 @@ const Calendar: FC<CalendarProps> = ({
 			if (!value || !('start' in value)) return false;
 			return isSameDay(date, value.start);
 		},
-		[value]
+		[value],
 	);
 
 	const isRangeEnd = useCallback(
@@ -151,7 +159,7 @@ const Calendar: FC<CalendarProps> = ({
 			if (!value || !('end' in value)) return false;
 			return isSameDay(date, value.end);
 		},
-		[value]
+		[value],
 	);
 
 	// Generate calendar days for current month
@@ -209,15 +217,22 @@ const Calendar: FC<CalendarProps> = ({
 	// Week day names
 	const weekDays = useMemo(() => {
 		const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-		const rotated = [...days.slice(firstDayOfWeek), ...days.slice(0, firstDayOfWeek)];
+		const rotated = [
+			...days.slice(firstDayOfWeek),
+			...days.slice(0, firstDayOfWeek),
+		];
 		return rotated.map((day) =>
-			new Date(2024, 0, days.indexOf(day) + 1).toLocaleDateString(locale, { weekday: 'short' })
+			new Date(2024, 0, days.indexOf(day) + 1).toLocaleDateString(locale, {
+				weekday: 'short',
+			}),
 		);
 	}, [firstDayOfWeek, locale]);
 
 	// Get week number
 	const getWeekNumber = (date: Date): number => {
-		const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+		const d = new Date(
+			Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
+		);
 		const dayNum = d.getUTCDay() || 7;
 		d.setUTCDate(d.getUTCDate() + 4 - dayNum);
 		const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
@@ -252,11 +267,23 @@ const Calendar: FC<CalendarProps> = ({
 	};
 
 	const changeMonth = (direction: number) => {
-		setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + direction, 1));
+		setCurrentDate(
+			new Date(
+				currentDate.getFullYear(),
+				currentDate.getMonth() + direction,
+				1,
+			),
+		);
 	};
 
 	const changeYearView = (direction: number) => {
-		setCurrentDate(new Date(currentDate.getFullYear() + direction * 12, currentDate.getMonth(), 1));
+		setCurrentDate(
+			new Date(
+				currentDate.getFullYear() + direction * 12,
+				currentDate.getMonth(),
+				1,
+			),
+		);
 	};
 
 	const selectMonth = (month: number) => {
@@ -326,13 +353,19 @@ const Calendar: FC<CalendarProps> = ({
 		}
 	};
 
-	const classes = ['calendar', disabled && 'calendar--disabled', className].filter(Boolean).join(' ');
+	const classes = ['calendar', disabled && 'calendar--disabled', className]
+		.filter(Boolean)
+		.join(' ');
 
 	// Render month view
 	const renderMonthView = () => (
 		<div className="calendar__month-view">
 			<div className="calendar__weekdays">
-				{showWeekNumbers && <div className="calendar__weekday calendar__weekday--week-number">Wk</div>}
+				{showWeekNumbers && (
+					<div className="calendar__weekday calendar__weekday--week-number">
+						Wk
+					</div>
+				)}
 				{weekDays.map((day, index) => (
 					<div key={index} className="calendar__weekday">
 						{day}
@@ -340,64 +373,74 @@ const Calendar: FC<CalendarProps> = ({
 				))}
 			</div>
 			<div className="calendar__days">
-				{Array.from({ length: Math.ceil(calendarDays.length / 7) }).map((_, weekIndex) => (
-					<div key={weekIndex} className="calendar__week">
-						{showWeekNumbers && (
-							<div className="calendar__week-number">
-								{calendarDays[weekIndex * 7] && getWeekNumber(calendarDays[weekIndex * 7])}
-							</div>
-						)}
-						{calendarDays.slice(weekIndex * 7, (weekIndex + 1) * 7).map((date, dayIndex) => {
-							if (!date) {
-								return <div key={dayIndex} className="calendar__day calendar__day--empty" />;
-							}
+				{Array.from({ length: Math.ceil(calendarDays.length / 7) }).map(
+					(_, weekIndex) => (
+						<div key={weekIndex} className="calendar__week">
+							{showWeekNumbers && (
+								<div className="calendar__week-number">
+									{calendarDays[weekIndex * 7] &&
+										getWeekNumber(calendarDays[weekIndex * 7])}
+								</div>
+							)}
+							{calendarDays
+								.slice(weekIndex * 7, (weekIndex + 1) * 7)
+								.map((date, dayIndex) => {
+									if (!date) {
+										return (
+											<div
+												key={dayIndex}
+												className="calendar__day calendar__day--empty"
+											/>
+										);
+									}
 
-							const isToday = isSameDay(date, today);
-							const isSelected = isDateSelected(date);
-							const isDisabled = isDateDisabled(date);
-							const isHighlighted = isDateHighlighted(date);
-							const isAdjacent = date.getMonth() !== currentDate.getMonth();
-							const inRange = isDateInRange(date);
-							const rangeStart = isRangeStart(date);
-							const rangeEnd = isRangeEnd(date);
+									const isToday = isSameDay(date, today);
+									const isSelected = isDateSelected(date);
+									const isDisabled = isDateDisabled(date);
+									const isHighlighted = isDateHighlighted(date);
+									const isAdjacent = date.getMonth() !== currentDate.getMonth();
+									const inRange = isDateInRange(date);
+									const rangeStart = isRangeStart(date);
+									const rangeEnd = isRangeEnd(date);
 
-							const dayClasses = [
-								'calendar__day',
-								isToday && 'calendar__day--today',
-								isSelected && 'calendar__day--selected',
-								isDisabled && 'calendar__day--disabled',
-								isHighlighted && 'calendar__day--highlighted',
-								isAdjacent && 'calendar__day--adjacent',
-								inRange && 'calendar__day--in-range',
-								rangeStart && 'calendar__day--range-start',
-								rangeEnd && 'calendar__day--range-end',
-								dateClassName?.(date),
-							]
-								.filter(Boolean)
-								.join(' ');
+									const dayClasses = [
+										'calendar__day',
+										isToday && 'calendar__day--today',
+										isSelected && 'calendar__day--selected',
+										isDisabled && 'calendar__day--disabled',
+										isHighlighted && 'calendar__day--highlighted',
+										isAdjacent && 'calendar__day--adjacent',
+										inRange && 'calendar__day--in-range',
+										rangeStart && 'calendar__day--range-start',
+										rangeEnd && 'calendar__day--range-end',
+										dateClassName?.(date),
+									]
+										.filter(Boolean)
+										.join(' ');
 
-							return (
-								<button
-									key={dayIndex}
-									type="button"
-									className={dayClasses}
-									onClick={() => handleDateClick(date)}
-									onKeyDown={(e) => handleKeyDown(e, date)}
-									disabled={isDisabled}
-									aria-label={date.toLocaleDateString(locale, {
-										year: 'numeric',
-										month: 'long',
-										day: 'numeric',
-									})}
-									aria-selected={isSelected}
-									aria-current={isToday ? 'date' : undefined}
-								>
-									{renderDate ? renderDate(date) : date.getDate()}
-								</button>
-							);
-						})}
-					</div>
-				))}
+									return (
+										<button
+											key={dayIndex}
+											type="button"
+											className={dayClasses}
+											onClick={() => handleDateClick(date)}
+											onKeyDown={(e) => handleKeyDown(e, date)}
+											disabled={isDisabled}
+											aria-label={date.toLocaleDateString(locale, {
+												year: 'numeric',
+												month: 'long',
+												day: 'numeric',
+											})}
+											aria-selected={isSelected}
+											aria-current={isToday ? 'date' : undefined}
+										>
+											{renderDate ? renderDate(date) : date.getDate()}
+										</button>
+									);
+								})}
+						</div>
+					),
+				)}
 			</div>
 		</div>
 	);
@@ -406,14 +449,18 @@ const Calendar: FC<CalendarProps> = ({
 	const renderYearView = () => {
 		const months = Array.from({ length: 12 }, (_, i) => i);
 		const monthNames = months.map((m) =>
-			new Date(currentDate.getFullYear(), m, 1).toLocaleDateString(locale, { month: 'short' })
+			new Date(currentDate.getFullYear(), m, 1).toLocaleDateString(locale, {
+				month: 'short',
+			}),
 		);
 
 		return (
 			<div className="calendar__year-view">
 				<div className="calendar__months">
 					{months.map((month) => {
-						const isCurrentMonth = month === today.getMonth() && currentDate.getFullYear() === today.getFullYear();
+						const isCurrentMonth =
+							month === today.getMonth() &&
+							currentDate.getFullYear() === today.getFullYear();
 						const isSelectedMonth = month === currentDate.getMonth();
 
 						const monthClasses = [
@@ -450,7 +497,9 @@ const Calendar: FC<CalendarProps> = ({
 				<button
 					type="button"
 					className="calendar__nav-button"
-					onClick={() => (activeView === 'month' ? changeMonth(-1) : changeYearView(-1))}
+					onClick={() =>
+						activeView === 'month' ? changeMonth(-1) : changeYearView(-1)
+					}
 					disabled={disabled}
 					aria-label="Previous"
 				>
@@ -463,13 +512,18 @@ const Calendar: FC<CalendarProps> = ({
 					disabled={disabled}
 				>
 					{activeView === 'month'
-						? currentDate.toLocaleDateString(locale, { year: 'numeric', month: 'long' })
+						? currentDate.toLocaleDateString(locale, {
+								year: 'numeric',
+								month: 'long',
+							})
 						: `${years[0]} - ${years[years.length - 1]}`}
 				</button>
 				<button
 					type="button"
 					className="calendar__nav-button"
-					onClick={() => (activeView === 'month' ? changeMonth(1) : changeYearView(1))}
+					onClick={() =>
+						activeView === 'month' ? changeMonth(1) : changeYearView(1)
+					}
 					disabled={disabled}
 					aria-label="Next"
 				>

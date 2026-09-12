@@ -1,20 +1,23 @@
 # @jayson991/react-ui
 
-A modern, responsive, and accessible React UI component library with TypeScript and Sass.
+A modern, responsive, and accessible React UI component library built with TypeScript and Sass.
 
 [![npm version](https://img.shields.io/npm/v/@jayson991/react-ui.svg)](https://www.npmjs.com/package/@jayson991/react-ui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-ready-3178c6.svg)](https://www.typescriptlang.org/)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Bundle size](https://img.shields.io/badge/bundle-~7%20kB%20gzip-blueviolet.svg)](#bundle-size)
 
 ## Features
 
-- 🎨 **Multiple Components** - Modal, Button, Input, Icon, Calendar, and more
-- 📱 **Fully Responsive** - Optimized for mobile, tablet, and desktop
-- ♿️ **Accessible** - WCAG compliant with ARIA and keyboard navigation
-- 🎨 **Sass Styling** - Clean, maintainable CSS architecture
-- 📦 **Tiny Bundle** - Tree-shakeable components
-- 🔧 **TypeScript** - Full type definitions included
-- 🎯 **Icon Fonts** - Support for Iconfont.cn and Icomoon.io
-- 🎨 **Customizable** - Custom styles and themes
+- **5 components** — Modal, Button, Input, Icon, Calendar
+- **Responsive** — optimized for mobile, tablet, and desktop
+- **Accessible** — ARIA attributes, keyboard navigation, focus management
+- **TypeScript** — full type definitions included
+- **Sass + BEM** — clean, overridable styles
+- **Dual format** — ESM and CommonJS builds, tree-shakeable
+- **Icons** — Iconfont.cn / Icomoon.io icon fonts and SVG symbols
+- **Playground** — interactive Storybook with a live overview
 
 ## Installation
 
@@ -26,305 +29,348 @@ yarn add @jayson991/react-ui
 pnpm add @jayson991/react-ui
 ```
 
+React and React DOM are peer dependencies (`>=18.0.0`).
+
 ## Quick Start
 
 ```tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal, Button, Input, Icon, Calendar } from '@jayson991/react-ui';
 
 function App() {
-  const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState('');
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+	const [showModal, setShowModal] = useState(false);
+	const [name, setName] = useState('');
+	const [date, setDate] = useState<Date | null>(null);
 
-  return (
-    <div>
-      <Input
-        label="Your Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Enter your name"
-      />
+	return (
+		<div>
+			<Input
+				label="Your Name"
+				value={name}
+				onChange={(e) => setName(e.target.value)}
+				placeholder="Enter your name"
+			/>
 
-      <Calendar
-        value={selectedDate}
-        onChange={(date) => setSelectedDate(date as Date)}
-        mode="single"
-      />
+			<Calendar
+				mode="single"
+				value={date}
+				onChange={(next) => setDate(next as Date)}
+			/>
 
-      <Button onClick={() => setShowModal(true)}>
-        <Icon name="user" size={16} />
-        Open Modal
-      </Button>
+			<Button onClick={() => setShowModal(true)}>
+				<Icon name="user" size={16} />
+				Open Modal
+			</Button>
 
-      <Modal
-        title="Welcome"
-        showModal={showModal}
-        onHideModal={() => setShowModal(false)}
-      >
-        <p>Hello, {name || 'Guest'}!</p>
-        {selectedDate && (
-          <p>Selected date: {selectedDate.toLocaleDateString()}</p>
-        )}
-      </Modal>
-    </div>
-  );
+			<Modal
+				title="Welcome"
+				showModal={showModal}
+				onHideModal={() => setShowModal(false)}
+			>
+				<p>Hello, {name || 'Guest'}!</p>
+				{date && <p>Selected date: {date.toLocaleDateString()}</p>}
+			</Modal>
+		</div>
+	);
 }
 ```
 
-> **Note**: Styles are automatically imported. No separate CSS import needed!
+Each component imports its own Sass, so no separate CSS import is required.
+
+## Playground
+
+Run the interactive Storybook to explore every component, its variants, and props:
+
+```bash
+pnpm storybook
+```
+
+The **Introduction** story is a live overview of the whole library.
 
 ## Components
 
 ### Modal
 
-A flexible modal dialog component.
-
 ```tsx
 import { Modal } from '@jayson991/react-ui';
 
 <Modal
-  title="My Modal"
-  showModal={isOpen}
-  onHideModal={() => setIsOpen(false)}
-  size="medium"
+	title="My Modal"
+	showModal={isOpen}
+	onHideModal={() => setIsOpen(false)}
+	size="medium"
+	centered
 >
-  <p>Modal content</p>
-</Modal>
+	<p>Modal content</p>
+</Modal>;
 ```
 
-**Props:**
-- `showModal` (required): Controls visibility
-- `onHideModal` (required): Close callback
-- `title`: Header title
-- `size`: 'small' | 'medium' | 'large' | 'fullscreen'
-- `centered`: Vertically center the modal
-- `animated`: Enable fade animations
-- And [more...](#modal-api)
+| Prop                   | Type                                       | Default         | Description                         |
+| ---------------------- | ------------------------------------------ | --------------- | ----------------------------------- |
+| `showModal`            | `boolean`                                  | —               | **Required.** Controls visibility   |
+| `onHideModal`          | `() => void`                               | —               | **Required.** Called when closing   |
+| `title`                | `string`                                   | —               | Header title                        |
+| `size`                 | `'small'\|'medium'\|'large'\|'fullscreen'` | `'medium'`      | Size variant                        |
+| `children`             | `ReactNode`                                | —               | Modal body                          |
+| `header`               | `ReactNode`                                | —               | Custom header (overrides `title`)   |
+| `footer`               | `ReactNode`                                | —               | Custom footer                       |
+| `closeOnBackdropClick` | `boolean`                                  | `true`          | Close when the backdrop is clicked  |
+| `closeOnEscape`        | `boolean`                                  | `true`          | Close on Escape                     |
+| `showCloseButton`      | `boolean`                                  | `true`          | Show the close button               |
+| `showHeader`           | `boolean`                                  | `true`          | Show the header                     |
+| `animated`             | `boolean`                                  | `true`          | Fade animation                      |
+| `animationDuration`    | `number`                                   | `300`           | Animation duration (ms)             |
+| `centered`             | `boolean`                                  | `false`         | Vertically center the modal         |
+| `scrollable`           | `boolean`                                  | `false`         | Allow page scrolling while open     |
+| `usePortal`            | `boolean`                                  | `true`          | Render through a React portal       |
+| `portalContainer`      | `HTMLElement`                              | `document.body` | Portal target                       |
+| `zIndex`               | `number`                                   | `1000`          | Backdrop z-index                    |
+| `className`            | `string`                                   | —               | Class on the modal container        |
+| `contentStyle`         | `CSSProperties`                            | —               | Inline styles for the content       |
+| `backdropStyle`        | `CSSProperties`                            | —               | Inline styles for the backdrop      |
+| `onOpen` / `onClose`   | `() => void`                               | —               | Lifecycle callbacks                 |
+| `onAnimationEnd`       | `() => void`                               | —               | Fires after the animation completes |
 
 ### Button
-
-A versatile button component with multiple variants.
 
 ```tsx
 import { Button } from '@jayson991/react-ui';
 
 <Button variant="primary" size="medium">
-  Click Me
-</Button>
+	Click Me
+</Button>;
 ```
 
-**Props:**
-- `variant`: 'primary' | 'secondary' | 'danger' | 'ghost'
-- `size`: 'small' | 'medium' | 'large'
-- `fullWidth`: Stretch to full width
-- `loading`: Show loading spinner
-- All standard button HTML attributes
+| Prop        | Type                                        | Default     | Description                  |
+| ----------- | ------------------------------------------- | ----------- | ---------------------------- |
+| `children`  | `ReactNode`                                 | —           | **Required.** Button content |
+| `variant`   | `'primary'\|'secondary'\|'danger'\|'ghost'` | `'primary'` | Visual style                 |
+| `size`      | `'small'\|'medium'\|'large'`                | `'medium'`  | Button size                  |
+| `fullWidth` | `boolean`                                   | `false`     | Stretch to full width        |
+| `loading`   | `boolean`                                   | `false`     | Show a spinner and disable   |
+| `className` | `string`                                    | `''`        | Custom class                 |
+
+Also accepts all standard `<button>` HTML attributes.
 
 ### Input
-
-A styled input component with label and error support.
 
 ```tsx
 import { Input } from '@jayson991/react-ui';
 
 <Input
-  label="Email"
-  type="email"
-  placeholder="your@email.com"
-  error="Invalid email"
-/>
+	label="Email"
+	type="email"
+	placeholder="your@email.com"
+	error="Invalid email"
+/>;
 ```
 
-**Props:**
-- `label`: Input label
-- `error`: Error message
-- `helperText`: Helper text below input
-- `inputSize`: 'small' | 'medium' | 'large'
-- `fullWidth`: Stretch to full width
-- `prefix`: Icon or element before input
-- `suffix`: Icon or element after input
-- All standard input HTML attributes
+| Prop         | Type                         | Default    | Description                 |
+| ------------ | ---------------------------- | ---------- | --------------------------- |
+| `label`      | `string`                     | —          | Label text                  |
+| `error`      | `string`                     | —          | Error message               |
+| `helperText` | `string`                     | —          | Helper text below the input |
+| `inputSize`  | `'small'\|'medium'\|'large'` | `'medium'` | Input size                  |
+| `fullWidth`  | `boolean`                    | `false`    | Stretch to full width       |
+| `prefix`     | `ReactNode`                  | —          | Element before the input    |
+| `suffix`     | `ReactNode`                  | —          | Element after the input     |
+| `className`  | `string`                     | `''`       | Custom class                |
+
+Also accepts all standard `<input>` attributes except `size` and `prefix` (overridden by `inputSize` and `prefix`).
 
 ### Icon
-
-An icon component for rendering icon fonts from Iconfont.cn or Icomoon.io.
 
 ```tsx
 import { Icon } from '@jayson991/react-ui';
 
-// Font mode (default)
 <Icon name="home" size={24} color="#3b82f6" />
 
-// SVG mode
 <Icon type="svg" name="user" size={32} color="red" />
+
+<Icon name="arrow-right" rotate={90} />
+
+<Icon name="bell" badge={5} />
 ```
 
-**Props:**
-- `name` (required): Icon name without 'icon-' prefix
-- `type`: 'font' | 'svg' (default: 'font')
-- `size`: Icon size in pixels
-- `color`: Icon color (hex, rgb, or named color)
-- `onClick`: Click handler
-- `ariaLabel`: Accessibility label
+| Prop             | Type               | Default      | Description                                           |
+| ---------------- | ------------------ | ------------ | ----------------------------------------------------- |
+| `name`           | `string`           | —            | **Required.** Icon name without the `icon-` prefix    |
+| `type`           | `'font'\|'svg'`    | `'font'`     | Rendering mode                                        |
+| `size`           | `number \| string` | `16px` (CSS) | Size in pixels, or any CSS length                     |
+| `color`          | `string`           | —            | Any valid CSS color; bare hex is normalized to `#hex` |
+| `rotate`         | `number`           | —            | Rotation in degrees                                   |
+| `flipHorizontal` | `boolean`          | —            | Flip horizontally                                     |
+| `flipVertical`   | `boolean`          | —            | Flip vertically                                       |
+| `spin`           | `boolean`          | —            | Continuous spin                                       |
+| `pulse`          | `boolean`          | —            | Pulse animation                                       |
+| `loading`        | `boolean`          | —            | Show the loading spinner                              |
+| `disabled`       | `boolean`          | —            | Dim and disable interactions                          |
+| `badge`          | `string \| number` | —            | Badge overlay                                         |
+| `badgeColor`     | `string`           | `'#ef4444'`  | Badge background                                      |
+| `title`          | `string`           | —            | Native tooltip                                        |
+| `ariaLabel`      | `string`           | —            | Accessible label (defaults to `name`)                 |
+| `onClick`        | `(event) => void`  | —            | Click handler; makes the icon focusable               |
+| `onKeyDown`      | `(event) => void`  | —            | Key handler                                           |
+| `className`      | `string`           | `''`         | Custom class                                          |
+| `style`          | `CSSProperties`    | `{}`         | Inline styles                                         |
 
-**Setup:**
+Icon assets are not bundled. Load them once with the exported loaders:
+
 ```tsx
-// 1. Import your icon font CSS and JS files
-import './iconfont.css';  // For font mode
-import './iconfont.js';   // For SVG mode
+import { loadIconFont, loadIconSvg, loadAllIcons } from '@jayson991/react-ui';
 
-// 2. Use the Icon component
-<Icon name="heart" size={24} color="#ef4444" />
+loadIconFont(); // type="font" icons
+loadIconSvg(); // type="svg" icons
+loadAllIcons(); // both at once
 ```
+
+The loaders are idempotent, so calling them more than once is safe.
 
 ### Calendar
 
-A fully-featured calendar component with multiple selection modes.
-
 ```tsx
-import { Calendar } from '@jayson991/react-ui';
+import { Calendar, type DateRange } from '@jayson991/react-ui';
 
 <Calendar
-  value={selectedDate}
-  onChange={(date) => setSelectedDate(date)}
-  mode="single"
-  showTodayButton
-  showWeekNumbers
-/>
+	mode="single"
+	value={date}
+	onChange={(next) => setDate(next as Date)}
+	showTodayButton
+	showWeekNumbers
+/>;
 ```
 
-**Props:**
-- `value`: Selected date(s) - Date | Date[] | DateRange | null
-- `onChange`: Callback when date is selected
-- `mode`: 'single' | 'multiple' | 'range' (default: 'single')
-- `minDate`: Minimum selectable date
-- `maxDate`: Maximum selectable date
-- `disabledDates`: Array of disabled dates or function
-- `highlightedDates`: Array of highlighted dates or function
-- `firstDayOfWeek`: 0-6 (0 = Sunday, 1 = Monday)
-- `showWeekNumbers`: Display week numbers
-- `showTodayButton`: Show button to jump to today
-- `showClearButton`: Show button to clear selection
-- `keyboardNavigation`: Enable keyboard controls
-- `view`: 'month' | 'year'
-- `locale`: Locale for date formatting (default: 'en-US')
+| Prop                  | Type                                  | Default    | Description                     |
+| --------------------- | ------------------------------------- | ---------- | ------------------------------- |
+| `value`               | `Date \| Date[] \| DateRange \| null` | `null`     | Selected date(s)                |
+| `defaultValue`        | `Date`                                | —          | Initial month to display        |
+| `onChange`            | `(date) => void`                      | —          | Selection callback              |
+| `mode`                | `'single'\|'multiple'\|'range'`       | `'single'` | Selection mode                  |
+| `minDate` / `maxDate` | `Date`                                | —          | Selectable range                |
+| `disabledDates`       | `Date[] \| ((date) => boolean)`       | —          | Disabled dates                  |
+| `highlightedDates`    | `Date[] \| ((date) => boolean)`       | —          | Highlighted dates               |
+| `firstDayOfWeek`      | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6`     | `0`        | 0 = Sunday, 1 = Monday, …       |
+| `showWeekNumbers`     | `boolean`                             | `false`    | Display week numbers            |
+| `showTodayButton`     | `boolean`                             | `true`     | Show the “today” button         |
+| `showClearButton`     | `boolean`                             | `true`     | Show the “clear” button         |
+| `keyboardNavigation`  | `boolean`                             | `true`     | Enable keyboard controls        |
+| `showAdjacentDates`   | `boolean`                             | `true`     | Show dates from adjacent months |
+| `view`                | `'month' \| 'year'`                   | `'month'`  | Controlled view                 |
+| `onViewChange`        | `(view) => void`                      | —          | View change callback            |
+| `renderDate`          | `(date) => ReactNode`                 | —          | Custom date cell                |
+| `renderHeader`        | `(date, changeMonth) => ReactNode`    | —          | Custom header                   |
+| `dateClassName`       | `(date) => string`                    | —          | Extra class per date            |
+| `locale`              | `string`                              | `'en-US'`  | Locale for date formatting      |
+| `className`           | `string`                              | `''`       | Custom class                    |
+| `disabled`            | `boolean`                             | `false`    | Disable the whole calendar      |
 
-**Selection Modes:**
+Selection modes:
+
 ```tsx
-// Single date selection
 <Calendar mode="single" value={date} onChange={setDate} />
-
-// Multiple dates selection
 <Calendar mode="multiple" value={dates} onChange={setDates} />
-
-// Date range selection
 <Calendar mode="range" value={{ start, end }} onChange={setRange} />
 ```
 
-## Bundle Size
+## Styling
 
-| File | Size | Gzipped |
-|------|------|---------|
-| JS (ESM) | 9.92 kB | 3.86 kB |
-| JS (CJS) | 9.72 kB | 3.85 kB |
-| CSS | 9.75 kB | 2.27 kB |
-| **Total** | **19.67 kB** | **6.13 kB** |
+Components use BEM class names (`.btn`, `.btn--primary`, `.input__label`, `.modal-content`, …) and accept `className` and `style` for overrides.
+
+```tsx
+<Button className="my-button">Custom Button</Button>
+
+<Input style={{ borderColor: 'blue' }} label="Custom Input" />
+```
+
+The compiled stylesheet is also available as `@jayson991/react-ui/styles` if you prefer to load CSS yourself.
 
 ## Responsive Design
 
-All components are fully responsive with optimized layouts for Desktop, Tablet, and Mobile:
+Breakpoints: mobile `≤ 480px`, tablet `481–768px`, desktop `≥ 1024px`.
 
-| Device | Screen Width | Optimizations |
-|--------|-------------|---------------|
-| **Mobile** | ≤ 480px | • 44px minimum touch targets<br>• Optimized spacing and padding<br>• 16px font size to prevent iOS zoom<br>• Adjusted prefix/suffix positioning |
-| **Tablet** | 481-768px | • Balanced sizing for medium screens<br>• Optimized padding and spacing<br>• Adjusted component dimensions |
-| **Desktop** | ≥ 1024px | • Full-featured experience<br>• Optimal spacing and typography<br>• Enhanced hover states |
+| Device      | Optimizations                                                                    |
+| ----------- | -------------------------------------------------------------------------------- |
+| **Mobile**  | 44px minimum touch targets, tighter spacing, 16px input font to prevent iOS zoom |
+| **Tablet**  | Balanced sizing and spacing                                                      |
+| **Desktop** | Full-featured experience with hover states                                       |
 
-### Additional Optimizations
+Additional behavior: touch-device tap feedback, high-contrast support, reduced-motion support, and dark-mode media queries.
 
-- **Touch Devices**: Larger touch targets, removed hover effects, scale feedback on tap
-- **High Contrast Mode**: Enhanced borders and contrast for accessibility
-- **Reduced Motion**: Respects user preferences by disabling animations
-- **iOS Optimization**: Prevents automatic zoom on input focus
+## Bundle Size
 
-## Tree-Shaking
+Current build output (`pnpm build`):
 
-Import only what you need:
+| File              | Raw     | Gzipped |
+| ----------------- | ------- | ------- |
+| `index.js` (ESM)  | 19.6 kB | 6.8 kB  |
+| `index.cjs` (CJS) | 17.9 kB | 6.5 kB  |
+| `react-ui.css`    | 32.0 kB | 14.5 kB |
+
+The icon SVG symbols are emitted as a separate lazy-loaded chunk; the icon font CSS is included in the main stylesheet.
+
+## Tree-Shaking & Imports
+
+Import everything from the package root. The build is ESM, so bundlers can drop unused component code:
 
 ```tsx
-// Import specific components
 import { Button, Calendar } from '@jayson991/react-ui';
-
-// Or import from subpaths
-import Button from '@jayson991/react-ui/Button';
-import Calendar from '@jayson991/react-ui/Calendar';
 ```
 
-## Customization
+Each component statically imports its own stylesheet, and the package marks `*.scss`/`*.css` as side effects, so a component's styles travel with the component. Import from the package root, or load the compiled stylesheet directly via `@jayson991/react-ui/styles`.
 
-### CSS Classes
+## TypeScript
 
-All components use BEM naming:
-
-```scss
-.btn { }                    // Button
-.btn--primary { }           // Button variant
-.input { }                  // Input
-.input__label { }           // Input label
-.modal-wrapper { }          // Modal backdrop
-.modal-content { }          // Modal box
-```
-
-### Custom Styles
-
-Override with your own CSS or use inline styles:
+All public types are exported:
 
 ```tsx
-<Button className="my-custom-button">
-  Custom Button
-</Button>
-
-<Input
-  style={{ borderColor: 'blue' }}
-  label="Custom Input"
-/>
+import type {
+	ModalProps,
+	ModalSize,
+	ButtonProps,
+	ButtonVariant,
+	ButtonSize,
+	InputProps,
+	InputSize,
+	IconProps,
+	CalendarProps,
+	CalendarView,
+	DayOfWeek,
+	DateRange,
+} from '@jayson991/react-ui';
 ```
 
 ## Development
 
 ```bash
-# Install dependencies
-pnpm install
-
-# Run tests
-pnpm test
-
-# Type checking
-pnpm type-check
-
-# Linting
-pnpm lint
-
-# Build library
-pnpm build
-
-# Run Storybook
-pnpm storybook
+pnpm install        # install dependencies
+pnpm storybook      # Storybook dev server on port 6006
+pnpm test           # run tests once
+pnpm test:watch     # tests in watch mode
+pnpm test:coverage  # coverage report
+pnpm typecheck      # tsc --noEmit
+pnpm lint           # oxlint
+pnpm lint:sass      # stylelint
+pnpm format         # oxfmt (write)
+pnpm format:check   # oxfmt (check only)
+pnpm build          # build the library
 ```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Browser Support
 
-Modern browsers including Chrome, Firefox, Safari, Edge, and mobile browsers.
+Modern browsers with ES2015+ support: Chrome, Firefox, Safari, Edge, and their mobile counterparts.
 
 ## Tech Stack
 
-React 19, TypeScript 5.9, Sass 1.96, Vite 7, Vitest 4, Storybook 10, Oxlint
+React 19, TypeScript 7, Sass, Vite 8, Vitest 5, Storybook 10, Oxlint, Oxfmt, Stylelint.
+
+## Documentation
+
+- [Quick Start](docs/QUICK_START.md)
+- [Bundle Optimization](docs/BUNDLE_OPTIMIZATION.md)
+- [Project Summary](docs/PROJECT_SUMMARY.md)
 
 ## License
 
 MIT © [jayson991](https://github.com/jaysonwu991)
-
-## Contributing
-
-Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
