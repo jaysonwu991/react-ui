@@ -35,7 +35,7 @@ Single-package React component library (`@jayson991/react-ui`). No monorepo, no 
 - Every `Component.tsx` imports its own `.scss`, so styles load with the component. `package.json` `sideEffects` lists SCSS/CSS.
 - Shared SCSS variables, breakpoints, and mixins live in `src/styles/_utilities.scss`; component SCSS imports it via `@use '../../styles/utilities' as *` (namespaced members are flattened with `as *`). Class names follow BEM.
 - Icon fonts/SVG live in `src/assets/icons/` (`iconfont.css`/`.js`), lazy-loaded through `src/assets/icons/loader.ts` (`loadIconFont`, `loadIconSvg`, `loadAllIcons`). `.storybook/preview.ts` imports them manually.
-- Storybook picks up `src/**/*.stories.tsx`; `src/stories/Introduction.stories.tsx` is a live full-library overview.
+- Storybook picks up `src/**/*.stories.tsx`; `src/stories/Introduction.stories.tsx` is a live full-library overview. Autodocs are enabled globally via `tags: ['autodocs']` in `.storybook/preview.ts` and require `@storybook/addon-docs` (Storybook 10 has no `addon-essentials`).
 - Long-form docs live in `docs/` (`BUNDLE_OPTIMIZATION.md`, `PROJECT_SUMMARY.md`, `QUICK_START.md`); root holds `README.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `LICENSE`.
 - Tests are colocated, use Vitest globals + Testing Library + jsdom (`vitest.setup.ts`). Coverage thresholds are 70% in `vite.config.mts`. `pnpm lint` passes clean.
 

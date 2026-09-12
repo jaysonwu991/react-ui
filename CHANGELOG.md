@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Input` now derives its fallback id with `useId` instead of `Math.random()` during render, so the id stays stable across re-renders
 - `Modal` derives `shouldRender` from `showModal || isAnimating` instead of storing it in state
 - Migrated `Calendar.scss` from the deprecated Sass `@import` to `@use '../../styles/utilities' as *`, clearing the Dart Sass 3.0 deprecation warning from `pnpm build`
+- Added the missing `@storybook/addon-docs` so the Storybook **Docs** tab renders autodocs for each component (Storybook 10 no longer ships `addon-essentials`)
 
 ## [1.0.0] - 2025-12-14
 
