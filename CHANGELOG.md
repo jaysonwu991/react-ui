@@ -36,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Restricted Vitest's `include` to `src/**/*.test.{ts,tsx}` so emitted files under `lib/` can never be collected
 - Normalized Storybook titles by dropping the `Components/` prefix from Calendar and Icon
 - Expanded the Storybook **Introduction** story into a full library showcase
+- Raised the Storybook build's `chunkSizeWarningLimit` to 1200 kB, since Storybook's own iframe and docs-renderer bundles exceed Vite's 500 kB default
+- Refreshed the README, `PROJECT_SUMMARY.md`, `BUNDLE_OPTIMIZATION.md`, and `AGENTS.md` with the current test totals and bundle sizes
 
 ### Fixed
 
@@ -46,9 +48,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed stray `.DS_Store` and backup files
 - Repaired the oxlint config: renamed `oxlintrc.json` to `.oxlintrc.json` so it is actually discovered, removed rule names not present in oxlint 1.82, added `env.browser`, and ignored the generated `src/assets/icons/iconfont.js` (clears the "minified file" warning)
 - `Input` now derives its fallback id with `useId` instead of `Math.random()` during render, so the id stays stable across re-renders
-- `Modal` derives `shouldRender` from `showModal || isAnimating` instead of storing it in state
 - Migrated `Calendar.scss` from the deprecated Sass `@import` to `@use '../../styles/utilities' as *`, clearing the Dart Sass 3.0 deprecation warning from `pnpm build`
 - Added the missing `@storybook/addon-docs` so the Storybook **Docs** tab renders autodocs for each component (Storybook 10 no longer ships `addon-essentials`)
+- `Progress` stories now use Storybook's `padded` layout, so the full-width track no longer collapses to zero width under the global `centered` layout
+- `Modal` no longer flashes when opened: it now mounts hidden and fades in once, rather than briefly applying and then removing the visible state
 
 ## [1.0.0] - 2025-12-14
 

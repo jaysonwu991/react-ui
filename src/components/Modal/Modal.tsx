@@ -82,46 +82,61 @@ const Modal: FC<ModalProps> = ({
 	scrollable = false,
 }) => {
 	const modalContent = useRef<HTMLDivElement>(null);
-	const [isAnimating, setIsAnimating] = useState<boolean>(false);
-	const shouldRender = showModal || isAnimating;
-	const previousShowModal = useRef<boolean>(showModal);
+	const [isMounted, setIsMounted] = useState<boolean>(showModal);
+	const [isVisible, setIsVisible] = useState<boolean>(showModal);
+	const wasOpen = useRef<boolean>(showModal);
 
-	// Handle animation and lifecycle. The enter/exit transitions toggle a CSS
-	// class after mount, so state is intentionally updated from this effect.
+	// Keep the latest callbacks in a ref so the transition effect only re-runs
+	// when the open state or animation configuration changes.
+	const callbacks = useRef({ onOpen, onClose, onAnimationEnd });
+	useEffect(() => {
+		callbacks.current = { onOpen, onClose, onAnimationEnd };
+	});
+
+	// Drive the enter/exit transitions. On open the modal mounts hidden and the
+	// visible class is added on the next frame so the CSS transition runs once.
+	// On close it stays mounted until the exit transition finishes.
 	/* oxlint-disable react/set-state-in-effect */
 	useEffect(() => {
-		if (showModal !== previousShowModal.current) {
-			previousShowModal.current = showModal;
+		if (showModal === wasOpen.current) return;
+		wasOpen.current = showModal;
 
-			if (showModal) {
-				setIsAnimating(true);
-				onOpen?.();
+		if (showModal) {
+			setIsMounted(true);
+			callbacks.current.onOpen?.();
 
-				if (animated) {
-					setTimeout(() => {
-						setIsAnimating(false);
-						onAnimationEnd?.();
-					}, animationDuration);
-				} else {
-					setIsAnimating(false);
-					onAnimationEnd?.();
-				}
-			} else {
-				setIsAnimating(true);
-				onClose?.();
-
-				if (animated) {
-					setTimeout(() => {
-						setIsAnimating(false);
-						onAnimationEnd?.();
-					}, animationDuration);
-				} else {
-					setIsAnimating(false);
-					onAnimationEnd?.();
-				}
+			if (!animated) {
+				setIsVisible(true);
+				callbacks.current.onAnimationEnd?.();
+				return;
 			}
+
+			const frame = requestAnimationFrame(() => setIsVisible(true));
+			const timer = setTimeout(
+				() => callbacks.current.onAnimationEnd?.(),
+				animationDuration,
+			);
+			return () => {
+				cancelAnimationFrame(frame);
+				clearTimeout(timer);
+			};
 		}
-	}, [showModal, animated, animationDuration, onOpen, onClose, onAnimationEnd]);
+
+		setIsVisible(false);
+		callbacks.current.onClose?.();
+
+		if (!animated) {
+			setIsMounted(false);
+			callbacks.current.onAnimationEnd?.();
+			return;
+		}
+
+		const timer = setTimeout(() => {
+			setIsMounted(false);
+			callbacks.current.onAnimationEnd?.();
+		}, animationDuration);
+		return () => clearTimeout(timer);
+	}, [showModal, animated, animationDuration]);
 	/* oxlint-enable react/set-state-in-effect */
 
 	// Handle escape key
@@ -168,15 +183,14 @@ const Modal: FC<ModalProps> = ({
 		}
 	};
 
-	if (!shouldRender) return null;
+	if (!showModal && !isMounted) return null;
 
 	// Build wrapper class names
 	const wrapperClasses = [
 		'modal-wrapper',
 		centered && 'modal-wrapper--centered',
-		!showModal && 'modal-wrapper--hidden',
 		animated && 'modal-wrapper--animated',
-		animated && showModal && 'modal-wrapper--visible',
+		isVisible && 'modal-wrapper--visible',
 		className,
 	]
 		.filter(Boolean)
@@ -187,7 +201,7 @@ const Modal: FC<ModalProps> = ({
 		'modal-content',
 		`modal-content--${size}`,
 		animated && 'modal-content--animated',
-		animated && showModal && !isAnimating && 'modal-content--visible',
+		isVisible && 'modal-content--visible',
 	]
 		.filter(Boolean)
 		.join(' ');

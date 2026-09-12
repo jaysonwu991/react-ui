@@ -5,6 +5,7 @@ const meta = {
 	title: 'Progress',
 	component: Progress,
 	parameters: {
+		layout: 'padded',
 		docs: {
 			description: {
 				component:

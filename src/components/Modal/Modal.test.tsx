@@ -359,6 +359,49 @@ describe('Modal Component', () => {
 			vi.useRealTimers();
 		});
 
+		it('should keep the modal content visible while open', () => {
+			vi.useFakeTimers();
+
+			const { container, rerender } = render(
+				<Modal
+					title="Test Modal"
+					showModal={false}
+					onHideModal={mockOnHideModal}
+					usePortal={false}
+				>
+					<p>Test Content</p>
+				</Modal>,
+			);
+
+			rerender(
+				<Modal
+					title="Test Modal"
+					showModal={true}
+					onHideModal={mockOnHideModal}
+					usePortal={false}
+				>
+					<p>Test Content</p>
+				</Modal>,
+			);
+
+			// Flush the requestAnimationFrame that starts the enter transition.
+			act(() => {
+				vi.advanceTimersByTime(20);
+			});
+
+			const content = container.querySelector('.modal-content');
+			expect(content).toHaveClass('modal-content--visible');
+
+			// Mid-animation the content must stay visible (no flash).
+			act(() => {
+				vi.advanceTimersByTime(150);
+			});
+
+			expect(content).toHaveClass('modal-content--visible');
+
+			vi.useRealTimers();
+		});
+
 		it('should handle animation disabled', () => {
 			const onAnimationEnd = vi.fn();
 

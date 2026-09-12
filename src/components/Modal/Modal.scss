@@ -79,10 +79,6 @@ $z-index-modal: 1000;
 		align-items: center;
 	}
 
-	&--hidden {
-		visibility: hidden;
-	}
-
 	// Animation support
 	&--animated {
 		opacity: 0;
