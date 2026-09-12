@@ -18,8 +18,6 @@
 		"node_modules/**",
 		"src/assets/icons/iconfont.js",
 		"src/assets/icons/iconfont.css",
-		"src/assets/icons/iconfont.json",
-		"src/assets/icons/demo.css",
-		"src/assets/icons/demo_index.html"
+		"src/assets/icons/iconfont.json"
 	]
 }

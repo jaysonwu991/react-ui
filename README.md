@@ -418,12 +418,6 @@ Modern browsers with ES2015+ support: Chrome, Firefox, Safari, Edge, and their m
 
 React 19, TypeScript 7, Sass, Vite 8, Vitest 5, Storybook 10, Oxlint, Oxfmt, Stylelint.
 
-## Documentation
-
-- [Quick Start](docs/QUICK_START.md)
-- [Bundle Optimization](docs/BUNDLE_OPTIMIZATION.md)
-- [Project Summary](docs/PROJECT_SUMMARY.md)
-
 ## License
 
 MIT © [jayson991](https://github.com/jaysonwu991)
